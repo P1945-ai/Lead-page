@@ -7,8 +7,7 @@ const steps = [
     icon: Search,
     title: 'Discovery',
     description:
-      'We dive deep into your business, goals, audience, and competitive landscape to understand exactly what needs to be built and why.',
-    color: 'blue',
+      'We dig into your business model, goals, competitive landscape, and the actual problem you\'re solving — before we touch a wireframe.',
     gradient: 'from-blue-600 to-cyan-500',
   },
   {
@@ -16,8 +15,7 @@ const steps = [
     icon: Map,
     title: 'Strategy',
     description:
-      'We define the product vision, core features, user journey, and business logic before a single line of code is written.',
-    color: 'violet',
+      'We define the product scope, core features, user journey, and technical architecture. No ambiguity going into the build.',
     gradient: 'from-violet-600 to-purple-500',
   },
   {
@@ -25,8 +23,7 @@ const steps = [
     icon: Palette,
     title: 'UX / UI Direction',
     description:
-      'We design the user experience and visual direction — wireframes, component systems, and interface designs that are both intuitive and premium.',
-    color: 'cyan',
+      'We design the experience and visual system — from wireframes to component libraries. Premium by default, not as an add-on.',
     gradient: 'from-cyan-600 to-blue-500',
   },
   {
@@ -34,8 +31,7 @@ const steps = [
     icon: Code2,
     title: 'MVP Build',
     description:
-      'We move from design to production, building your product with clean, scalable code and modern architecture that won\'t need to be thrown away later.',
-    color: 'emerald',
+      'We build with production-quality code and modern architecture. What we ship in the MVP won\'t be thrown out when you scale.',
     gradient: 'from-emerald-600 to-teal-500',
   },
   {
@@ -43,36 +39,34 @@ const steps = [
     icon: TestTube2,
     title: 'Testing & Refinement',
     description:
-      'We test across devices, user flows, and edge cases — then refine based on real feedback to ensure quality before launch.',
-    color: 'amber',
+      'We test across devices and real user flows. We refine until the experience is clean, the logic is solid, and the product is ready.',
     gradient: 'from-amber-600 to-orange-500',
   },
   {
     number: '06',
     icon: Rocket,
-    title: 'Launch Support',
+    title: 'Launch & Support',
     description:
-      'We don\'t disappear after launch. We support your go-to-market, monitor performance, and iterate rapidly based on what real users tell us.',
-    color: 'rose',
+      'We support your go-to-market, monitor performance, and stay available for rapid iteration in the critical post-launch window.',
     gradient: 'from-rose-600 to-pink-500',
   },
 ];
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.08 } },
 };
 
 const stepVariant = {
-  hidden: { opacity: 0, y: 32 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
 export default function Process() {
   return (
-    <section id="process" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/25 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent pointer-events-none" />
+    <section id="process" className="relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/[0.07] to-transparent pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
         <motion.div
@@ -84,21 +78,20 @@ export default function Process() {
         >
           <div className="section-label">How We Work</div>
           <h2 className="section-title">
-            Our <span className="gradient-text">Process</span>
+            Our <span className="gradient-text">6-Step Process</span>
           </h2>
           <p className="section-subtitle">
-            A structured, six-step approach that takes your idea from concept to launched product
-            — built right the first time.
+            A structured approach that eliminates uncertainty, moves fast, and delivers
+            products that are built right the first time.
           </p>
         </motion.div>
 
-        {/* Steps grid */}
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-60px' }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
         >
           {steps.map((step, i) => {
             const Icon = step.icon;
@@ -106,56 +99,51 @@ export default function Process() {
               <motion.div
                 key={i}
                 variants={stepVariant}
-                whileHover={{ y: -5 }}
-                className="glass-card-hover p-6 group relative overflow-hidden"
+                whileHover={{ y: -4 }}
+                className="glass-card-hover p-5 sm:p-6 group relative overflow-hidden"
               >
-                {/* Step number (background) */}
-                <div className="absolute -right-2 -top-3 text-7xl font-black text-white/[0.03] select-none pointer-events-none">
+                {/* Large ghost number */}
+                <div className="absolute -right-1 -top-2 text-[6rem] font-black text-white/[0.025] select-none pointer-events-none leading-none">
                   {step.number}
                 </div>
 
-                {/* Step indicator */}
-                <div className="flex items-center gap-3 mb-5">
-                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="text-white" size={22} />
+                <div className="relative z-10">
+                  {/* Step badge + icon row */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br ${step.gradient}
+                                    flex items-center justify-center shadow-lg
+                                    group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className="text-white" size={20} />
+                    </div>
+                    <span className={`text-[10px] sm:text-xs font-black tracking-[0.2em] uppercase
+                                     bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent`}>
+                      Step {step.number}
+                    </span>
                   </div>
-                  <span className={`text-xs font-black tracking-widest bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent`}>
-                    STEP {step.number}
-                  </span>
+
+                  <h3 className="text-white font-bold text-base sm:text-lg mb-2">{step.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{step.description}</p>
                 </div>
-
-                <h3 className="text-white font-bold text-lg mb-3">{step.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{step.description}</p>
-
-                {/* Connecting arrow (except last row) */}
-                {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute -right-2.5 top-1/2 -translate-y-1/2 z-10">
-                    {i % 3 !== 2 && (
-                      <div className="w-5 h-px bg-gradient-to-r from-white/20 to-transparent" />
-                    )}
-                  </div>
-                )}
               </motion.div>
             );
           })}
         </motion.div>
 
-        {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-14 text-center"
+          className="mt-12 sm:mt-14 text-center"
         >
-          <p className="text-slate-400 text-base mb-6">
-            Ready to start the process? Let's begin with a discovery conversation.
+          <p className="text-slate-400 text-sm mb-5">
+            Step one is a no-pressure discovery conversation. No commitment required.
           </p>
           <button
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="btn-primary"
+            className="btn-primary min-h-0 w-auto inline-flex px-6 py-3"
           >
-            Book a Discovery Call
+            Book a Discovery Conversation
           </button>
         </motion.div>
       </div>

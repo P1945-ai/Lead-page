@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Eye } from 'lucide-react';
+import { Eye, ChevronRight } from 'lucide-react';
 import { projects } from '../data/projects';
 import ProjectModal from './ProjectModal';
 
 const statusConfig = {
   development: { label: 'In Development', cls: 'badge-development' },
-  mvp: { label: 'MVP', cls: 'badge-mvp' },
-  concept: { label: 'Concept', cls: 'badge-concept' },
-  client: { label: 'Client System', cls: 'badge-client' },
+  mvp:         { label: 'MVP',             cls: 'badge-mvp' },
+  concept:     { label: 'Concept',         cls: 'badge-concept' },
+  client:      { label: 'Client System',   cls: 'badge-client' },
 };
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.09 } },
 };
 
 const card = {
-  hidden: { opacity: 0, y: 32 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
 export default function FeaturedProjects() {
@@ -26,10 +26,9 @@ export default function FeaturedProjects() {
 
   return (
     <>
-      <section id="projects" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-900 via-navy-800/30 to-navy-900 pointer-events-none" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
+      <section id="projects" className="relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#06060F] via-navy-800/20 to-[#06060F] pointer-events-none" />
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
 
         <div className="relative max-w-7xl mx-auto">
           <motion.div
@@ -44,8 +43,8 @@ export default function FeaturedProjects() {
               Featured <span className="gradient-text">Projects</span>
             </h2>
             <p className="section-subtitle">
-              A portfolio of platforms, tools, and systems built by Revenue Engine Limited — each
-              one engineered to solve a real business problem.
+              Seven platforms, tools, and systems — each engineered to solve a real business
+              problem and built to demonstrate what Revenue Engine Limited is capable of.
             </p>
           </motion.div>
 
@@ -54,31 +53,41 @@ export default function FeaturedProjects() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: '-60px' }}
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 items-start"
           >
             {projects.map((project) => {
               const status = statusConfig[project.statusKey] || statusConfig.concept;
               return (
-                <motion.div
+                <motion.article
                   key={project.id}
                   variants={card}
-                  whileHover={{ y: -6 }}
-                  transition={{ duration: 0.3 }}
-                  className="project-card glass-card border border-white/[0.07] overflow-hidden group cursor-pointer shimmer-hover"
+                  whileHover={{ y: -5 }}
+                  transition={{ duration: 0.25 }}
+                  className="project-card glass-card border border-white/[0.07] overflow-hidden group cursor-pointer h-full"
                   onClick={() => setSelected(project)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && setSelected(project)}
+                  aria-label={`View details for ${project.name}`}
                 >
-                  {/* Card top gradient */}
-                  <div className={`relative h-40 bg-gradient-to-br ${project.gradient} overflow-hidden flex items-center justify-center`}>
-                    <div className="absolute inset-0 grid-pattern opacity-20" />
-                    <div
-                      className="absolute -right-8 -top-8 w-32 h-32 rounded-full blur-2xl bg-white/10"
-                    />
-                    <div
-                      className="absolute -left-4 -bottom-4 w-24 h-24 rounded-full blur-2xl bg-black/20"
-                    />
-                    <span className="relative z-10 text-5xl drop-shadow-lg filter">{project.icon}</span>
+                  {/* Visual header */}
+                  <div className={`relative h-44 bg-gradient-to-br ${project.gradient} overflow-hidden flex items-center justify-center flex-shrink-0`}>
+                    <div className="absolute inset-0 grid-pattern opacity-[0.18]" />
+                    <div className="absolute -right-6 -top-6 w-36 h-36 rounded-full blur-2xl bg-white/10" />
+                    <div className="absolute -left-4 -bottom-4 w-28 h-28 rounded-full blur-2xl bg-black/20" />
 
-                    {/* Status badge */}
+                    <span className="relative z-10 text-[3.5rem] drop-shadow-xl leading-none select-none">
+                      {project.icon}
+                    </span>
+
+                    {/* Category top-left */}
+                    <div className="absolute top-3 left-3">
+                      <span className="text-[10px] font-bold tracking-widest uppercase text-white/60 bg-black/20 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                        {project.category}
+                      </span>
+                    </div>
+
+                    {/* Status top-right */}
                     <div className="absolute top-3 right-3">
                       <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${status.cls}`}>
                         {status.label}
@@ -86,66 +95,59 @@ export default function FeaturedProjects() {
                     </div>
                   </div>
 
-                  {/* Card body */}
-                  <div className="p-5">
-                    {/* Category */}
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-bold tracking-widest uppercase text-slate-500">
-                        {project.category}
-                      </span>
-                      <Eye size={14} className="text-slate-600 group-hover:text-blue-400 transition-colors" />
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-white font-bold text-lg mb-1 group-hover:gradient-text transition-all duration-300">
+                  {/* Card body — flex-grow ensures equal height across the row */}
+                  <div className="p-5 flex flex-col flex-1">
+                    {/* Title + tagline */}
+                    <h3 className="text-white font-bold text-lg leading-tight mb-1 group-hover:text-blue-300 transition-colors duration-200">
                       {project.name}
                     </h3>
-                    <p className="text-blue-400/80 text-xs font-medium mb-3">{project.tagline}</p>
+                    <p className="text-blue-400/70 text-xs font-medium mb-3 tracking-wide">
+                      {project.tagline}
+                    </p>
 
-                    {/* Description */}
-                    <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 mb-4">
+                    {/* Description — flex-1 makes it fill remaining space */}
+                    <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 flex-1 mb-5">
                       {project.description}
                     </p>
 
-                    {/* CTA */}
-                    <div className="flex items-center justify-between pt-4 border-t border-white/[0.05]">
+                    {/* CTA row */}
+                    <div className="flex items-center justify-between pt-4 border-t border-white/[0.05] mt-auto">
                       <button
-                        className="text-sm font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1.5 transition-colors group/btn"
+                        className="flex items-center gap-1.5 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors group/btn"
                         onClick={(e) => { e.stopPropagation(); setSelected(project); }}
                       >
+                        <Eye size={14} />
                         View Details
-                        <ExternalLink size={13} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                        <ChevronRight size={13} className="group-hover/btn:translate-x-0.5 transition-transform" />
                       </button>
                       <div
-                        className="w-6 h-6 rounded-lg flex items-center justify-center"
-                        style={{ background: project.glowColor }}
+                        className="w-7 h-7 rounded-xl flex items-center justify-center text-sm"
+                        style={{ background: `${project.glowColor}`, border: `1px solid ${project.glowColor}` }}
                       >
-                        <span className="text-xs">{project.icon}</span>
+                        {project.icon}
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </motion.article>
               );
             })}
           </motion.div>
 
-          {/* More coming */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
             className="text-center mt-12"
           >
-            <div className="inline-flex items-center gap-3 px-6 py-3 glass-card border border-white/[0.07] rounded-2xl text-slate-500 text-sm">
+            <div className="inline-flex items-center gap-3 px-5 py-3 glass-card border border-white/[0.06] rounded-2xl text-slate-500 text-sm">
               <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-              More projects in development — check back soon
+              New projects in development — portfolio expanding
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Modal */}
       {selected && (
         <ProjectModal project={selected} onClose={() => setSelected(null)} />
       )}

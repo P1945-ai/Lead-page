@@ -1,29 +1,48 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, Phone, MessageSquare, CheckCircle2, Zap } from 'lucide-react';
+import { Send, Mail, Clock, CheckCircle2, Zap, ArrowRight, MessageSquare } from 'lucide-react';
 
 const budgetOptions = [
   'Under $5,000',
   '$5,000 – $15,000',
   '$15,000 – $30,000',
   '$30,000 – $60,000',
-  '$60,000+',
+  '$60,000 – $100,000',
+  '$100,000+',
   'Open to Discussion',
 ];
 
 const timelineOptions = [
-  'ASAP / Rush',
+  'ASAP (within 2 weeks)',
   '1 – 2 Months',
   '2 – 4 Months',
   '4 – 6 Months',
   '6+ Months',
-  'Not Sure Yet',
+  "Not Sure Yet — Let's Talk",
 ];
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'hello@revenueengine.ltd', href: 'mailto:hello@revenueengine.ltd' },
-  { icon: Phone, label: 'Phone', value: 'By Appointment', href: '#' },
-  { icon: MessageSquare, label: 'Response Time', value: 'Within 24 Hours', href: '#' },
+  {
+    icon: Mail,
+    label: 'Email',
+    value: 'hello@revenueengine.ltd',
+    href: 'mailto:hello@revenueengine.ltd',
+    detail: 'Best for detailed briefs',
+  },
+  {
+    icon: Clock,
+    label: 'Response Time',
+    value: 'Within 24 Hours',
+    href: null,
+    detail: 'Mon – Fri',
+  },
+  {
+    icon: MessageSquare,
+    label: 'Discovery Call',
+    value: 'Scheduled After Intake',
+    href: null,
+    detail: 'No commitment required',
+  },
 ];
 
 export default function Contact() {
@@ -34,24 +53,23 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
 
-  const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  const handleChange = (e) =>
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
-    await new Promise((r) => setTimeout(r, 1200));
+    await new Promise((r) => setTimeout(r, 1400));
     setSending(false);
     setSubmitted(true);
   };
 
   return (
-    <section id="contact" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/15 to-transparent pointer-events-none" />
-
-      {/* Orbs */}
-      <div className="orb w-96 h-96 bg-blue-700 -bottom-24 -right-24 opacity-10" />
-      <div className="orb w-80 h-80 bg-violet-700 top-0 -left-20 opacity-8" />
+    <section id="contact" className="relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/25 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/[0.12] to-transparent pointer-events-none" />
+      <div className="orb w-80 h-80 bg-blue-700 -bottom-20 -right-20 opacity-[0.09]" />
+      <div className="orb w-72 h-72 bg-violet-700 top-10 -left-16 opacity-[0.07]" />
 
       <div className="relative max-w-7xl mx-auto">
         <motion.div
@@ -66,79 +84,89 @@ export default function Contact() {
             Start a Project <span className="gradient-text">Conversation</span>
           </h2>
           <p className="section-subtitle">
-            Tell us what you want to build. We'll review your request and follow up within 24
-            hours with our initial thoughts.
+            Tell us what you're trying to build or solve. We'll review your brief and respond
+            within 24 hours with our honest initial thoughts — no sales pitch, no obligation.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-10 items-start">
-          {/* Left info panel */}
+        <div className="grid lg:grid-cols-5 gap-8 lg:gap-10 items-start">
+
+          {/* Left panel */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2 space-y-4"
           >
-            {/* Company card */}
-            <div className="glass-card p-6 border border-white/[0.07]">
+            {/* Studio card */}
+            <div className="glass-card p-5 sm:p-6 border border-white/[0.07]">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center flex-shrink-0">
                   <Zap className="text-white" size={18} />
                 </div>
                 <div>
                   <div className="text-white font-bold text-sm">Revenue Engine Limited</div>
-                  <div className="text-slate-500 text-xs">AI-Powered Digital Systems</div>
+                  <div className="text-slate-500 text-xs">AI Systems & Digital Growth Studio</div>
                 </div>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed">
-                We work with businesses, startups, and investors to design and build AI-powered
-                digital platforms, tools, and systems that generate real results.
+                We partner with businesses, founders, and investors to build AI-powered platforms,
+                automation systems, and growth tools that generate measurable results from day one.
               </p>
             </div>
 
             {/* Contact details */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               {contactInfo.map((info, i) => {
                 const Icon = info.icon;
+                const Wrapper = info.href ? 'a' : 'div';
                 return (
-                  <a
+                  <Wrapper
                     key={i}
-                    href={info.href}
+                    {...(info.href ? { href: info.href } : {})}
                     className="glass-card-hover flex items-center gap-4 p-4 group"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center group-hover:border-blue-500/40 transition-colors">
-                      <Icon className="text-blue-400" size={16} />
+                    <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0 group-hover:border-blue-500/40 transition-colors">
+                      <Icon className="text-blue-400" size={15} />
                     </div>
-                    <div>
-                      <div className="text-slate-500 text-xs font-medium">{info.label}</div>
-                      <div className="text-white text-sm font-medium">{info.value}</div>
+                    <div className="min-w-0">
+                      <div className="text-slate-500 text-[11px] font-medium">{info.label}</div>
+                      <div className="text-white text-sm font-medium truncate">{info.value}</div>
+                      {info.detail && (
+                        <div className="text-slate-600 text-[11px]">{info.detail}</div>
+                      )}
                     </div>
-                  </a>
+                  </Wrapper>
                 );
               })}
             </div>
 
-            {/* What to expect */}
+            {/* What happens next */}
             <div className="glass-card p-5 border border-white/[0.07]">
-              <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">What Happens Next</div>
-              <div className="space-y-2.5">
-                {[
-                  'We review your submission within 24 hours',
-                  'We send an initial response with questions and thoughts',
-                  'We schedule a discovery call if there\'s a fit',
-                  'We provide a project outline and estimate',
-                ].map((step, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-sm text-slate-400">
-                    <span className="text-xs font-bold text-blue-500 w-4 flex-shrink-0 mt-0.5">{i + 1}.</span>
-                    {step}
-                  </div>
-                ))}
+              <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                <ArrowRight size={12} className="text-blue-400" />
+                What Happens After You Submit
               </div>
+              <ol className="space-y-3">
+                {[
+                  'We review your brief and assess the build scope',
+                  'We respond with initial thoughts within 24 hours',
+                  'We schedule a discovery call if there\'s a real fit',
+                  'We provide a scoped outline and project estimate',
+                ].map((step, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="w-5 h-5 rounded-full bg-blue-500/15 border border-blue-500/25 text-[10px] font-bold text-blue-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {i + 1}
+                    </span>
+                    <span className="text-sm text-slate-400 leading-relaxed">{step}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </motion.div>
 
-          {/* Right form */}
+          {/* Right: Form */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -147,30 +175,45 @@ export default function Contact() {
             className="lg:col-span-3"
           >
             {submitted ? (
-              <div className="glass-card border border-emerald-500/20 p-12 text-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="glass-card border border-emerald-500/20 p-8 sm:p-12 text-center bg-emerald-950/10"
+              >
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 200 }}
-                  className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mx-auto mb-6"
+                  transition={{ type: 'spring', stiffness: 220, damping: 16, delay: 0.1 }}
+                  className="w-16 h-16 rounded-full bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center mx-auto mb-6"
                 >
-                  <CheckCircle2 className="text-emerald-400" size={32} />
+                  <CheckCircle2 className="text-emerald-400" size={30} />
                 </motion.div>
-                <h3 className="text-white text-2xl font-bold mb-2">Message Received</h3>
-                <p className="text-slate-400 text-sm leading-relaxed max-w-sm mx-auto">
-                  Thank you for reaching out. We'll review your project request and get back to you
-                  within 24 hours.
+                <h3 className="text-white text-2xl font-bold mb-2">Brief Received</h3>
+                <p className="text-slate-400 text-sm leading-relaxed max-w-sm mx-auto mb-8">
+                  We've got your submission and will review it within 24 hours. Expect a
+                  thoughtful, direct response — not a template.
                 </p>
-              </div>
+                <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
+                  {[
+                    { label: '24h', sub: 'Response time' },
+                    { label: 'Direct', sub: 'Honest feedback' },
+                  ].map((m, i) => (
+                    <div key={i} className="glass-card p-3 border border-white/[0.06]">
+                      <div className="text-lg font-black gradient-text">{m.label}</div>
+                      <div className="text-xs text-slate-500">{m.sub}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="glass-card border border-white/[0.07] p-6 sm:p-8 space-y-5"
+                className="glass-card border border-white/[0.07] p-5 sm:p-7 space-y-4 sm:space-y-5"
               >
-                {/* Row 1: Name + Company */}
+                {/* Name + Company */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                    <label className="block text-xs font-semibold text-slate-400 mb-1.5">
                       Full Name <span className="text-blue-500">*</span>
                     </label>
                     <input
@@ -179,29 +222,29 @@ export default function Contact() {
                       value={form.name}
                       onChange={handleChange}
                       required
-                      placeholder="Your name"
+                      placeholder="e.g. Alex Johnson"
                       className="form-input"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">
-                      Company / Organisation
+                    <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                      Company / Project Name
                     </label>
                     <input
                       type="text"
                       name="company"
                       value={form.company}
                       onChange={handleChange}
-                      placeholder="Company name (optional)"
+                      placeholder="e.g. Apex Services Ltd"
                       className="form-input"
                     />
                   </div>
                 </div>
 
-                {/* Row 2: Email + Phone */}
+                {/* Email + Phone */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                    <label className="block text-xs font-semibold text-slate-400 mb-1.5">
                       Email Address <span className="text-blue-500">*</span>
                     </label>
                     <input
@@ -210,12 +253,14 @@ export default function Contact() {
                       value={form.email}
                       onChange={handleChange}
                       required
-                      placeholder="your@email.com"
+                      placeholder="you@company.com"
                       className="form-input"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">Phone Number</label>
+                    <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                      Phone (optional)
+                    </label>
                     <input
                       type="tel"
                       name="phone"
@@ -227,9 +272,9 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Project description */}
+                {/* Project */}
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
                     What Do You Want to Build? <span className="text-blue-500">*</span>
                   </label>
                   <input
@@ -238,7 +283,7 @@ export default function Contact() {
                     value={form.project}
                     onChange={handleChange}
                     required
-                    placeholder="Brief description of your project or idea"
+                    placeholder='e.g. "Lead funnel + CRM for my plumbing business" or "AI chatbot for client onboarding"'
                     className="form-input"
                   />
                 </div>
@@ -246,30 +291,34 @@ export default function Contact() {
                 {/* Budget + Timeline */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">Budget Range</label>
+                    <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                      Budget Range
+                    </label>
                     <select
                       name="budget"
                       value={form.budget}
                       onChange={handleChange}
                       className="form-input"
                     >
-                      <option value="" className="bg-navy-900 text-slate-400">Select budget range</option>
+                      <option value="">Select a range</option>
                       {budgetOptions.map((b) => (
-                        <option key={b} value={b} className="bg-navy-900">{b}</option>
+                        <option key={b} value={b}>{b}</option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">Timeline</label>
+                    <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                      Target Timeline
+                    </label>
                     <select
                       name="timeline"
                       value={form.timeline}
                       onChange={handleChange}
                       className="form-input"
                     >
-                      <option value="" className="bg-navy-900 text-slate-400">Select timeline</option>
+                      <option value="">Select a timeline</option>
                       {timelineOptions.map((t) => (
-                        <option key={t} value={t} className="bg-navy-900">{t}</option>
+                        <option key={t} value={t}>{t}</option>
                       ))}
                     </select>
                   </div>
@@ -277,13 +326,15 @@ export default function Contact() {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">Additional Details</label>
+                  <label className="block text-xs font-semibold text-slate-400 mb-1.5">
+                    Additional Context
+                  </label>
                   <textarea
                     name="message"
                     value={form.message}
                     onChange={handleChange}
                     rows={4}
-                    placeholder="Tell us more about your goals, challenges, or any specific requirements..."
+                    placeholder="Tell us about the problem you're trying to solve, your target users, any existing tools you use, or anything that would help us understand the scope..."
                     className="form-input resize-none"
                   />
                 </div>
@@ -292,23 +343,24 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={sending}
-                  className="w-full btn-primary justify-center py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full btn-primary py-4 text-base min-h-[52px] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
                   {sending ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Sending...
+                      Sending your brief...
                     </>
                   ) : (
                     <>
-                      Start a Project Conversation
+                      Send Project Brief
                       <Send size={16} />
                     </>
                   )}
                 </button>
 
-                <p className="text-center text-xs text-slate-600">
-                  No spam. No sales calls without your permission. Just a real conversation.
+                <p className="text-center text-xs text-slate-600 leading-relaxed">
+                  No sales calls without permission. No spam. Just a direct response about whether
+                  we can help.
                 </p>
               </form>
             )}
