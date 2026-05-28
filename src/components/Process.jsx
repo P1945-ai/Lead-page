@@ -54,12 +54,17 @@ const steps = [
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.14, delayChildren: 0.05 } },
 };
 
 const stepVariant = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 60, scale: 0.92 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.75, ease: [0.23, 1, 0.32, 1] } },
+};
+
+const lineVariant = {
+  hidden: { scaleX: 0 },
+  show: { scaleX: 1, transition: { duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0.3 } },
 };
 
 export default function Process() {
@@ -85,6 +90,31 @@ export default function Process() {
             products that are built right the first time.
           </p>
         </motion.div>
+
+        {/* Animated progress line — desktop only */}
+        <div className="hidden lg:block relative mb-6 px-2">
+          <div className="h-px w-full bg-white/[0.04] rounded-full overflow-hidden">
+            <motion.div
+              variants={lineVariant}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-60px' }}
+              className="h-full bg-gradient-to-r from-blue-500 via-violet-500 to-rose-500 origin-left"
+            />
+          </div>
+          <div className="absolute top-1/2 left-0 right-0 flex justify-between -translate-y-1/2 pointer-events-none">
+            {steps.map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + i * 0.14, duration: 0.35, ease: 'backOut' }}
+                className="w-2 h-2 rounded-full bg-blue-400 border-2 border-[#06060F]"
+              />
+            ))}
+          </div>
+        </div>
 
         <motion.div
           variants={container}

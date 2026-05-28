@@ -26,12 +26,12 @@ const iconBgMap = {
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.07 } },
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
 };
 
 const cardVariant = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 72, scale: 0.9 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.75, ease: [0.23, 1, 0.32, 1] } },
 };
 
 export default function Services() {

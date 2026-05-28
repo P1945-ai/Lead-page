@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, ArrowRight, Users, TrendingUp, Target, BarChart3, Layout } from 'lucide-react';
+import { ProjectIcon } from '../utils/projectIcons';
 
 const statusConfig = {
   development: { label: 'In Development', cls: 'badge-development' },
@@ -114,8 +115,10 @@ export default function ProjectModal({ project, onClose }) {
             <div className="absolute -left-8 -bottom-8 w-44 h-44 rounded-full blur-3xl bg-black/25" />
 
             <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-              <div className="text-5xl sm:text-6xl mb-2 filter drop-shadow-lg leading-none select-none">
-                {project.icon}
+              <div className="mb-3 filter drop-shadow-lg">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-black/25 backdrop-blur-sm border border-white/20 flex items-center justify-center mx-auto">
+                  <ProjectIcon name={project.icon} size={36} className="text-white" />
+                </div>
               </div>
               <h2 className="text-white text-xl sm:text-2xl font-black leading-tight">{project.name}</h2>
               <p className="text-white/65 text-xs sm:text-sm mt-1">{project.tagline}</p>

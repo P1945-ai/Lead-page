@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Eye, ChevronRight } from 'lucide-react';
 import { projects } from '../data/projects';
 import ProjectModal from './ProjectModal';
+import { ProjectIcon } from '../utils/projectIcons';
 
 const statusConfig = {
   development: { label: 'In Development', cls: 'badge-development' },
@@ -17,8 +18,8 @@ const container = {
 };
 
 const card = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 56, scale: 0.94 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65, ease: [0.23, 1, 0.32, 1] } },
 };
 
 export default function FeaturedProjects() {
@@ -76,9 +77,9 @@ export default function FeaturedProjects() {
                     <div className="absolute -right-6 -top-6 w-36 h-36 rounded-full blur-2xl bg-white/10" />
                     <div className="absolute -left-4 -bottom-4 w-28 h-28 rounded-full blur-2xl bg-black/20" />
 
-                    <span className="relative z-10 text-[3.5rem] drop-shadow-xl leading-none select-none">
-                      {project.icon}
-                    </span>
+                    <div className="relative z-10 w-16 h-16 rounded-2xl bg-black/20 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-xl">
+                      <ProjectIcon name={project.icon} size={32} className="text-white" />
+                    </div>
 
                     {/* Category top-left */}
                     <div className="absolute top-3 left-3">
@@ -121,10 +122,10 @@ export default function FeaturedProjects() {
                         <ChevronRight size={13} className="group-hover/btn:translate-x-0.5 transition-transform" />
                       </button>
                       <div
-                        className="w-7 h-7 rounded-xl flex items-center justify-center text-sm"
+                        className="w-7 h-7 rounded-xl flex items-center justify-center"
                         style={{ background: `${project.glowColor}`, border: `1px solid ${project.glowColor}` }}
                       >
-                        {project.icon}
+                        <ProjectIcon name={project.icon} size={14} className="text-white" />
                       </div>
                     </div>
                   </div>

@@ -11,7 +11,7 @@ export const projects = [
     accentColor: 'blue',
     gradient: 'from-blue-600 via-cyan-500 to-blue-800',
     glowColor: 'rgba(59,130,246,0.3)',
-    icon: '⚡',
+    icon: 'Zap',
     problem:
       'Local businesses and service companies struggle to be found online, capture leads effectively, and convert website visitors into paying customers. Most lack the marketing infrastructure that large companies have.',
     solution:
@@ -42,7 +42,7 @@ export const projects = [
     accentColor: 'violet',
     gradient: 'from-violet-600 via-purple-500 to-indigo-700',
     glowColor: 'rgba(124,58,237,0.3)',
-    icon: '🎯',
+    icon: 'Target',
     problem:
       'Local service businesses lose revenue every day through missed calls, disorganized lead tracking, poor follow-up systems, and lack of structured operational processes. Most rely on manual memory and informal systems.',
     solution:
@@ -73,7 +73,7 @@ export const projects = [
     accentColor: 'indigo',
     gradient: 'from-indigo-600 via-purple-600 to-pink-600',
     glowColor: 'rgba(99,102,241,0.3)',
-    icon: '🌙',
+    icon: 'Moon',
     problem:
       'Parents struggle to find high-quality, personalized bedtime stories that engage their children consistently. Generic content fails to build the emotional connection and imagination that truly magical storytelling creates.',
     solution:
@@ -104,7 +104,7 @@ export const projects = [
     accentColor: 'amber',
     gradient: 'from-amber-600 via-orange-500 to-yellow-600',
     glowColor: 'rgba(245,158,11,0.3)',
-    icon: '🌐',
+    icon: 'Globe',
     problem:
       'International trade is complex, opaque, and difficult to access for legitimate buyers and suppliers. Finding verified counterparties, ensuring document compliance, and managing the brokerage process is time-consuming and high-risk.',
     solution:
@@ -135,7 +135,7 @@ export const projects = [
     accentColor: 'emerald',
     gradient: 'from-emerald-600 via-teal-500 to-cyan-600',
     glowColor: 'rgba(16,185,129,0.3)',
-    icon: '🚗',
+    icon: 'Car',
     problem:
       'Premium auto detailing and protection services struggle to communicate value online, capture high-intent leads, and manage bookings efficiently. Many rely on phone calls and informal processes that miss revenue opportunities.',
     solution:
@@ -166,7 +166,7 @@ export const projects = [
     accentColor: 'orange',
     gradient: 'from-orange-600 via-red-500 to-rose-600',
     glowColor: 'rgba(249,115,22,0.3)',
-    icon: '🎨',
+    icon: 'Palette',
     problem:
       'Vinyl wrap shops struggle to show customers what their vehicle will look like before committing. Customers want to visualize options, understand pricing, and feel confident before getting a quote — but most shops rely on static portfolios.',
     solution:
@@ -197,7 +197,7 @@ export const projects = [
     accentColor: 'slate',
     gradient: 'from-slate-600 via-zinc-500 to-stone-600',
     glowColor: 'rgba(148,163,184,0.2)',
-    icon: '✈️',
+    icon: 'Plane',
     problem:
       'Private jet and aircraft detailing services are premium offerings that lack premium digital presentation. Most are sold through personal networks with no online presence that matches the quality of the service or the expectations of HNW clients.',
     solution:

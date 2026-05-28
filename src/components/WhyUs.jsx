@@ -41,12 +41,12 @@ const reasons = [
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.09 } },
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
 const item = {
-  hidden: { opacity: 0, x: -20 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  hidden: { opacity: 0, x: 64, scale: 0.95 },
+  show: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.7, ease: [0.23, 1, 0.32, 1] } },
 };
 
 export default function WhyUs() {
@@ -61,10 +61,10 @@ export default function WhyUs() {
 
           {/* Left column */}
           <motion.div
-            initial={{ opacity: 0, x: -28 }}
+            initial={{ opacity: 0, x: -72 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.85, ease: [0.23, 1, 0.32, 1] }}
           >
             <div className="section-label">Why Us</div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-5">
