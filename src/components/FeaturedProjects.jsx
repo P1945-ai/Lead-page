@@ -27,7 +27,7 @@ export default function FeaturedProjects() {
   return (
     <>
       <section id="projects" className="relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#06060F] via-navy-800/20 to-[#06060F] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#06060F] via-blue-900/20 to-[#06060F] pointer-events-none" />
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
 
         <div className="relative max-w-7xl mx-auto">
