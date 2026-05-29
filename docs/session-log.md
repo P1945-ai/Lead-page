@@ -2,6 +2,89 @@
 
 ---
 
+=== SESSION HANDOFF — 2026-05-29 20:30 UTC ===
+
+TASK: Full pivot to warm light theme + Ella hero character + live ElevenLabs voice demo
+
+CHANGES MADE:
+- design-tokens.ts + index.css :root: dark → warm light (cream #FAFAF5, orange #FF4F00, indigo #5B6CFF, soft shadows)
+- index.css: light component classes, gradient utilities, float/pulse-ring/waveform/spin keyframes, reduced-motion
+- tailwind.config.js: light palette + scaled typography (hero 96px); index.html theme-color cream
+- Hero.jsx: 2-col 60/40, "Meet Ella" headline, /images/ella-hero.png + placeholder fallback, 3 floating cards
+- EllaVoiceDemo.jsx: NEW — ElevenLabs Conversational AI, ConversationProvider wrap, mic flow, 60s cutoff, 1/day quota gate, state machine
+- PromoBar.jsx: NEW — sticky dark strip "Try Ella live"
+- TrustBar.jsx: real SVG logos + ElevenLabs/Bland/Vapi/Lindy wordmarks
+- FeaturedProjects.jsx: Decagon-style 5 colored capability cards + detail modal
+- Industries.jsx: NEW — 6-card industries grid
+- HowItWorks.jsx: light, orange left-border, 72px mono numbers
+- Pricing.jsx: LAUNCH/SCALE/DOMINATE tiers, light
+- Founder.jsx: light, id="about", capability badges
+- FinalCTA.jsx / Navbar.jsx / Footer.jsx / Contact.jsx: relit for light theme; Navbar "Talk to Ella"
+- App.jsx: new render order; EllaVoiceDemo code-split via React.lazy
+- .env.example (+ .gitignore exception), netlify function voice-check-quota.js + /api redirect, README.md
+
+FILES TOUCHED:
+- src/lib/design-tokens.ts, src/index.css, tailwind.config.js, index.html, src/App.jsx
+- src/components/{Hero,EllaVoiceDemo,PromoBar,TrustBar,FeaturedProjects,Industries,HowItWorks,Pricing,Founder,FinalCTA,Navbar,Footer,Contact}.jsx
+- .env.example, .gitignore, netlify.toml, netlify/functions/voice-check-quota.js, README.md, public/images/README.txt
+- package.json, package-lock.json
+
+NEW DEPENDENCIES:
+- @elevenlabs/react@^1.6.4 — Conversational AI React hook (useConversation/ConversationProvider)
+- @elevenlabs/client@^1.9.0 — underlying SDK (peer)
+
+BREAKING CHANGES:
+- Entire theme inverted dark → light; any dark-only assumptions elsewhere will look wrong
+- FeaturedProjects no longer renders the 7 projects/ProjectModal; now 5 capability cards (projects.js + ProjectModal.jsx kept on disk, unused)
+- Navbar/footer CTAs now target #voice-demo and #about (new anchors)
+
+TESTING DONE:
+- npm run build — passed, zero errors; main bundle 99KB gz, voice SDK split to async 133KB gz chunk
+- npm run preview — HTTP 200, root div + hashed JS present
+- Verified @elevenlabs/react exports useConversation/ConversationProvider; confirmed startSession({agentId}) shape and provider requirement
+- Voice demo renders 'unconfigured' safe state when VITE_ELEVENLABS_AGENT_ID unset (no crash, no connection attempt)
+
+KNOWN ISSUES:
+- /public/images/ella-hero.png NOT saved — I cannot extract inline chat-attachment bytes to disk. USER must manually save the attached image to public/images/ella-hero.png. Until then Hero shows "ELLA HERO" placeholder.
+- Voice demo end-to-end NOT verified live (no agent ID + no browser/mic in container); logic verified by build + types only
+- Bland.ai / Vapi / Lindy rendered as styled wordmarks (not in simple-icons; avoided inventing wrong SVG paths)
+- /api/voice/check-quota is an MVP stub returning allowed:true; real per-IP limit needs a KV store (Netlify Blobs/Upstash) — see TODO in function. Client localStorage is the effective gate.
+- Lighthouse not run (no browser); light theme + code-split should help but unverified
+- Founder photo still Unsplash hotlink
+
+DEVIATIONS FROM BRIEF:
+- Ella image saved by tool: not possible (see Known Issues); wired path + fallback instead
+- Spline embed (Hero Option B) not used; used the preferred Option A direction (static portrait + floating cards + warm glow) — no animated orb since a real portrait is the hero
+- Custom cursor dot (optional) skipped
+- Voice cost protection is client-side authoritative for MVP (backend stub) per brief's allowed fallback
+
+NEXT LOGICAL STEPS:
+1. USER: save attached image to public/images/ella-hero.png, commit
+2. Create ElevenLabs agent, set VITE_ELEVENLABS_AGENT_ID in Netlify env + local .env, test mic flow on iOS Safari/Android Chrome
+3. Back /api/voice/check-quota with Netlify Blobs for true per-IP daily limit
+4. Run Lighthouse on deploy preview; confirm 90+/95+
+5. QA screenshots at 1440/768/390; replace Founder Unsplash photo
+
+DO NOT TOUCH:
+- Auth / JWT / login flow
+- Stripe integration
+- Email service mocks
+- Backend /api routes (except added /api/voice/check-quota)
+- Database schemas
+- Admin routes
+- Any locked sections per PROJECT_BRIEF.md
+
+ENV / CREDENTIALS NEEDED:
+- VITE_ELEVENLABS_AGENT_ID — ElevenLabs Conversational AI agent ID (set in Netlify + local .env)
+
+DEPLOY STATUS:
+- commit f84df9c pushed to claude/revenue-engine-portfolio-oDFKP
+- Netlify auto-rebuild triggered; preview URL = same Netlify branch-deploy pattern, new commit hash f84df9c (exact URL surfaced by Netlify dashboard once build completes)
+
+=== END HANDOFF ===
+
+---
+
 === SESSION HANDOFF — 2026-05-29 02:00 UTC ===
 
 TASK: Visual enhancement — inject color, imagery, energy into all sections (Phases 1–9)
