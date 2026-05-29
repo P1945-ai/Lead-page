@@ -1,27 +1,27 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Stats from './components/Stats';
-import WhatWeDo from './components/WhatWeDo';
+import TrustBar from './components/TrustBar';
 import FeaturedProjects from './components/FeaturedProjects';
-import Services from './components/Services';
-import WhyUs from './components/WhyUs';
-import Process from './components/Process';
+import HowItWorks from './components/HowItWorks';
+import Pricing from './components/Pricing';
+import Founder from './components/Founder';
 import Contact from './components/Contact';
+import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-navy-900 text-white">
+    <div style={{ background: 'var(--bg)', color: 'var(--text-primary)', minHeight: '100vh' }}>
       <Navbar />
       <main>
         <Hero />
-        <Stats />
-        <WhatWeDo />
+        <TrustBar />
         <FeaturedProjects />
-        <Services />
-        <WhyUs />
-        <Process />
+        <HowItWorks />
+        <Pricing />
+        <Founder />
         <Contact />
+        <FinalCTA />
       </main>
       <Footer />
     </div>

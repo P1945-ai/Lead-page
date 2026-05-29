@@ -1,131 +1,117 @@
-import { motion } from 'framer-motion';
-import { Zap, Github, Twitter, Linkedin, ArrowUp } from 'lucide-react';
+import { Github, Twitter, Linkedin } from 'lucide-react';
 
-const footerLinks = {
-  Company: [
-    { label: 'Our Projects', href: '#projects' },
-    { label: 'Services', href: '#services' },
-    { label: 'Our Process', href: '#process' },
-    { label: 'About', href: '#about' },
+const cols = {
+  Studio: [
+    { label: 'Work',    href: '#projects' },
+    { label: 'Process', href: '#process' },
+    { label: 'Pricing', href: '#pricing' },
     { label: 'Contact', href: '#contact' },
   ],
-  Capabilities: [
-    { label: 'AI App Development', href: '#services' },
-    { label: 'SaaS MVP Builds', href: '#services' },
-    { label: 'Lead-Gen Systems', href: '#services' },
-    { label: 'Business Automation', href: '#services' },
-    { label: 'CRM & Dashboards', href: '#services' },
+  Services: [
+    { label: 'AI Agent Development',  href: '#' },
+    { label: 'SaaS MVP Builds',       href: '#' },
+    { label: 'Growth Automation',     href: '#' },
+    { label: 'Operations Platforms',  href: '#' },
   ],
   Legal: [
-    { label: 'Privacy Policy', href: '#' },
+    { label: 'Privacy Policy',   href: '#' },
     { label: 'Terms of Service', href: '#' },
+  ],
+  Connect: [
+    { label: 'GitHub',   href: '#', icon: Github },
+    { label: 'Twitter',  href: '#', icon: Twitter },
+    { label: 'LinkedIn', href: '#', icon: Linkedin },
   ],
 };
 
-const socialLinks = [
-  { icon: Github,   href: '#', label: 'GitHub' },
-  { icon: Twitter,  href: '#', label: 'Twitter / X' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-];
+const go = (href) => {
+  if (!href.startsWith('#')) return;
+  const id = href.slice(1);
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+};
 
 export default function Footer() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  const handleNavClick = (href) => {
-    if (!href.startsWith('#')) return;
-    const id = href.slice(1);
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <footer className="relative pt-14 pb-8 px-4 sm:px-6 lg:px-8 overflow-hidden border-t border-white/[0.06]">
-      <div className="absolute inset-0 bg-[#06060F]/70 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-blue-500/25 to-transparent" />
+    <footer
+      style={{
+        background: 'var(--bg)',
+        borderTop: '1px solid var(--border)',
+        padding: '64px 24px 32px',
+      }}
+    >
+      <div className="max-w-screen-xl mx-auto">
 
-      <div className="relative max-w-7xl mx-auto">
-
-        {/* Main footer grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12">
-
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center shadow-lg">
-                <Zap className="text-white" size={17} />
-              </div>
-              <div className="leading-none">
-                <div className="text-white font-bold text-sm">Revenue Engine</div>
-                <div className="text-slate-500 text-[10px] font-semibold tracking-[0.18em] uppercase mt-0.5">Limited</div>
-              </div>
-            </div>
-
-            <p className="text-slate-500 text-sm leading-relaxed max-w-xs mb-5">
-              AI-powered digital systems, apps, automation, and growth platforms — built for
-              businesses that need leads, better operations, and scalable infrastructure.
-            </p>
-
-            <div className="flex items-center gap-2">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    aria-label={social.label}
-                    className="w-9 h-9 rounded-lg glass-card border border-white/[0.07] flex items-center justify-center text-slate-500 hover:text-blue-400 hover:border-blue-500/30 transition-all duration-200"
-                  >
-                    <Icon size={15} />
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Link columns */}
-          {Object.entries(footerLinks).map(([group, links]) => (
-            <div key={group} className="col-span-1">
-              <div className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500 mb-4">
+        {/* Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-16">
+          {Object.entries(cols).map(([group, links]) => (
+            <div key={group}>
+              <p
+                className="eyebrow block mb-5"
+                style={{ fontSize: '10px' }}
+              >
                 {group}
-              </div>
-              <ul className="space-y-2.5">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <button
-                      onClick={() => handleNavClick(link.href)}
-                      className="text-sm text-slate-400 hover:text-white transition-colors duration-200 text-left"
-                    >
-                      {link.label}
-                    </button>
-                  </li>
-                ))}
+              </p>
+              <ul className="space-y-3">
+                {links.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <li key={link.label}>
+                      <button
+                        onClick={() => go(link.href)}
+                        className="flex items-center gap-2"
+                        style={{
+                          fontSize: '14px',
+                          color: 'var(--text-secondary)',
+                          background: 'none',
+                          border: 'none',
+                          padding: 0,
+                          cursor: 'pointer',
+                          transition: 'color 200ms',
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
+                      >
+                        {Icon && <Icon size={13} />}
+                        {link.label}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
         </div>
 
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent mb-6" />
-
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-slate-600 text-xs text-center sm:text-left">
+        <div
+          style={{
+            borderTop: '1px solid var(--border)',
+            paddingTop: '24px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+          className="sm:flex-row"
+        >
+          <span
+            style={{
+              fontFamily: '"Geist Mono Variable", monospace',
+              fontSize: '12px',
+              color: 'var(--text-muted)',
+            }}
+          >
+            REVENUE ENGINE LTD
+          </span>
+          <span
+            style={{
+              fontSize: '12px',
+              color: 'var(--text-muted)',
+            }}
+          >
             © {new Date().getFullYear()} Revenue Engine Limited. All rights reserved.
-          </div>
-
-          <div className="flex items-center gap-4">
-            <span className="text-slate-700 text-xs hidden sm:block">
-              AI Systems · Built for Scale
-            </span>
-            <button
-              onClick={scrollToTop}
-              className="w-8 h-8 rounded-lg glass-card border border-white/[0.07] flex items-center justify-center text-slate-500 hover:text-blue-400 hover:border-blue-500/30 transition-all"
-              aria-label="Back to top"
-            >
-              <ArrowUp size={13} />
-            </button>
-          </div>
+          </span>
         </div>
       </div>
     </footer>
