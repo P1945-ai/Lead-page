@@ -1,10 +1,18 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
 
+# Voice demo quota endpoint — must come before the SPA catch-all.
+[[redirects]]
+  from = "/api/voice/check-quota"
+  to = "/.netlify/functions/voice-check-quota"
+  status = 200
+
+# SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"

@@ -1,183 +1,209 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MessageSquare, Calendar } from 'lucide-react';
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 16 },
+  initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: [0.4, 0, 0.2, 1] },
+  transition: { duration: 0.5, delay, ease: [0.4, 0, 0.2, 1] },
 });
 
 export default function Hero() {
+  const [imgOk, setImgOk] = useState(true);
   const scrollTo = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: 'var(--bg)' }}
+      className="relative overflow-hidden"
+      style={{ background: 'var(--bg)', paddingTop: '96px', paddingBottom: '80px' }}
     >
-      {/* Vibrant background orbs */}
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div
-          className="mesh-blob orb-vibrant"
-          style={{
-            position: 'absolute',
-            width: '640px',
-            height: '640px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(91,108,255,0.55) 0%, rgba(255,79,157,0.3) 45%, transparent 70%)',
-            filter: 'blur(80px)',
-            top: '5%',
-            left: '25%',
-            transform: 'translate(-50%, 0)',
-            animationName: 'orb-drift-a',
-            animationDuration: '15s',
-            opacity: 0.65,
-          }}
-        />
-        <div
-          className="mesh-blob orb-vibrant"
-          style={{
-            position: 'absolute',
-            width: '520px',
-            height: '520px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(0,212,255,0.45) 0%, rgba(91,108,255,0.3) 55%, transparent 75%)',
-            filter: 'blur(80px)',
-            top: '55%',
-            right: '-5%',
-            animationName: 'orb-drift-b',
-            animationDuration: '20s',
-            opacity: 0.55,
-          }}
-        />
-        <div
-          className="mesh-blob orb-vibrant"
-          style={{
-            position: 'absolute',
-            width: '360px',
-            height: '360px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(255,181,71,0.25) 0%, transparent 65%)',
-            filter: 'blur(60px)',
-            bottom: '15%',
-            left: '5%',
-            animationName: 'orb-drift-c',
-            animationDuration: '25s',
-            opacity: 0.45,
-          }}
-        />
-      </div>
-
-      {/* Hairline top border */}
+      {/* warm radial glow top-right */}
       <div
-        className="absolute top-0 inset-x-0 h-px pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, var(--border), transparent)' }}
+        aria-hidden="true"
+        className="gradient-warm-glow absolute pointer-events-none"
+        style={{ width: '900px', height: '700px', top: '-200px', right: '-200px', opacity: 0.4 }}
       />
 
-      <div className="relative z-10 max-w-hero mx-auto px-6 text-center pt-28 pb-20 w-full">
+      <div className="relative z-10 max-w-screen-xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-12 lg:gap-10 items-center">
 
-        {/* Pill badge */}
-        <motion.div {...fadeUp(0)} className="flex justify-center mb-6">
-          <span
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '6px 14px',
-              borderRadius: '999px',
-              background: 'linear-gradient(135deg, rgba(91,108,255,0.14) 0%, rgba(255,79,157,0.14) 100%)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              fontSize: '12px',
-              fontFamily: '"Geist Mono Variable", monospace',
-              fontWeight: 600,
-              letterSpacing: '0.08em',
-              color: 'rgba(255,255,255,0.65)',
-            }}
-          >
-            <span
-              className="mesh-blob"
+          {/* LEFT — copy */}
+          <div>
+            <motion.div {...fadeUp(0)}>
+              <span className="eyebrow">REVENUE ENGINE LTD</span>
+            </motion.div>
+
+            <motion.h1
+              {...fadeUp(0.08)}
               style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                background: 'var(--accent-lime)',
-                display: 'inline-block',
-                flexShrink: 0,
-                animationName: 'badge-pulse',
-                animationDuration: '2s',
+                fontFamily: '"Geist Variable", "Inter", sans-serif',
+                fontSize: 'clamp(56px, 8vw, 96px)',
+                lineHeight: 1.02,
+                letterSpacing: '-0.02em',
+                fontWeight: 700,
+                color: 'var(--text-primary)',
+                marginTop: '20px',
+                marginBottom: '24px',
               }}
+            >
+              Meet Ella. Your AI revenue engine.
+            </motion.h1>
+
+            <motion.p
+              {...fadeUp(0.16)}
+              style={{
+                fontSize: '24px',
+                lineHeight: 1.5,
+                color: 'var(--text-secondary)',
+                maxWidth: '540px',
+                marginBottom: '36px',
+              }}
+            >
+              Custom AI agents, automation, and growth systems for founders who want
+              leverage — not headcount. Try Ella live below.
+            </motion.p>
+
+            <motion.div
+              {...fadeUp(0.24)}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6"
+            >
+              <button onClick={() => scrollTo('voice-demo')} className="btn-primary">
+                Talk to Ella now
+                <ArrowRight size={16} />
+              </button>
+              <button onClick={() => scrollTo('contact')} className="btn-secondary">
+                Book a call
+              </button>
+            </motion.div>
+
+            <motion.p
+              {...fadeUp(0.3)}
+              style={{
+                fontFamily: '"Geist Mono Variable", monospace',
+                fontSize: '13px',
+                color: 'var(--text-muted)',
+                letterSpacing: '0.02em',
+              }}
+            >
+              Now onboarding 5 founding clients · Launch pricing
+            </motion.p>
+          </div>
+
+          {/* RIGHT — Ella portrait + floating cards */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            className="relative mx-auto w-full"
+            style={{ maxWidth: '420px' }}
+          >
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '4/5',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                background: 'var(--surface-warm)',
+                border: '1px solid var(--border)',
+                boxShadow: 'var(--shadow-lg)',
+              }}
+            >
+              {imgOk ? (
+                <img
+                  src="/images/ella-hero.png"
+                  alt="Ella — your AI revenue agent"
+                  onError={() => setImgOk(false)}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: '100%', height: '100%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: 'linear-gradient(135deg, #F5F0E8 0%, #FFE8D6 100%)',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: '"Geist Mono Variable", monospace',
+                      fontSize: '15px',
+                      letterSpacing: '0.1em',
+                      color: 'var(--text-muted)',
+                    }}
+                  >
+                    ELLA HERO
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Floating product cards — hidden on mobile */}
+            <FloatCard
+              className="float-a hidden md:flex"
+              style={{ top: '-18px', right: '-26px' }}
+              icon={<MessageSquare size={15} style={{ color: 'var(--accent)' }} />}
+              title="Lead captured"
+              meta="11:42 PM"
             />
-            NEW · AI STUDIO 2026
-          </span>
-        </motion.div>
-
-        {/* Eyebrow */}
-        <motion.div {...fadeUp(0.06)}>
-          <span className="eyebrow">REVENUE ENGINE LTD / AI STUDIO</span>
-        </motion.div>
-
-        {/* Headline */}
-        <motion.h1
-          {...fadeUp(0.12)}
-          style={{
-            fontFamily: '"Geist Variable", "Inter", sans-serif',
-            fontSize: 'clamp(40px, 7vw, 72px)',
-            lineHeight: '1.08',
-            letterSpacing: '-0.02em',
-            fontWeight: 700,
-            color: 'var(--text-primary)',
-            marginTop: '24px',
-            marginBottom: '24px',
-          }}
-        >
-          We build AI systems that<br />
-          run your business.
-        </motion.h1>
-
-        {/* Subhead */}
-        <motion.p
-          {...fadeUp(0.2)}
-          style={{
-            fontSize: '18px',
-            lineHeight: '1.6',
-            color: 'var(--text-secondary)',
-            maxWidth: '580px',
-            margin: '0 auto 36px',
-          }}
-        >
-          Custom AI agents, automation, and growth platforms for founders
-          who want leverage — not headcount.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          {...fadeUp(0.28)}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8"
-        >
-          <button
-            onClick={() => scrollTo('contact')}
-            className="btn-primary"
-            style={{ padding: '12px 24px', fontSize: '15px' }}
-          >
-            Book intro call
-            <ArrowRight size={15} />
-          </button>
-          <button
-            onClick={() => scrollTo('projects')}
-            className="btn-secondary"
-            style={{ padding: '12px 24px', fontSize: '15px' }}
-          >
-            See our work
-          </button>
-        </motion.div>
-
-        {/* Launch copy */}
-        <motion.p {...fadeUp(0.36)} className="eyebrow">
-          Now accepting first 5 partner clients at launch pricing.
-        </motion.p>
+            <FloatCard
+              className="float-b hidden md:flex"
+              style={{ bottom: '32px', left: '-40px' }}
+              icon={<Calendar size={15} style={{ color: 'var(--accent-secondary)' }} />}
+              title="Call booked"
+              meta="TechStack <> Demo"
+            />
+            <FloatCard
+              className="float-c hidden md:flex"
+              style={{ top: '46%', right: '-46px' }}
+              icon={<span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--success)', display: 'inline-block' }} />}
+              title="Status: Active"
+              meta="24/7"
+            />
+          </motion.div>
+        </div>
       </div>
     </section>
+  );
+}
+
+function FloatCard({ className, style, icon, title, meta }) {
+  return (
+    <div
+      className={className}
+      style={{
+        position: 'absolute',
+        alignItems: 'center',
+        gap: '10px',
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '12px',
+        padding: '12px 16px',
+        boxShadow: 'var(--shadow-md)',
+        zIndex: 20,
+        ...style,
+      }}
+    >
+      <span
+        style={{
+          width: '30px', height: '30px', borderRadius: '8px',
+          background: 'var(--surface-warm)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flexShrink: 0,
+        }}
+      >
+        {icon}
+      </span>
+      <div style={{ textAlign: 'left', whiteSpace: 'nowrap' }}>
+        <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 }}>
+          {title}
+        </div>
+        <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: '"Geist Mono Variable", monospace' }}>
+          {meta}
+        </div>
+      </div>
+    </div>
   );
 }

@@ -1,29 +1,27 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
   { label: 'Work',    href: '#projects' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'Process', href: '#process' },
+  { label: 'About',   href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];
 
 export default function Navbar() {
-  const [scrolled,  setScrolled]  = useState(false);
-  const [menuOpen,  setMenuOpen]  = useState(false);
-  const [active,    setActive]    = useState('home');
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [active,   setActive]   = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 24);
-      const ids = ['home', 'projects', 'pricing', 'process', 'contact'];
+      const ids = ['home', 'projects', 'pricing', 'process', 'about', 'contact'];
       for (let i = ids.length - 1; i >= 0; i--) {
         const el = document.getElementById(ids[i]);
-        if (el && window.scrollY >= el.offsetTop - 120) {
-          setActive(ids[i]);
-          break;
-        }
+        if (el && window.scrollY >= el.offsetTop - 120) { setActive(ids[i]); break; }
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -36,7 +34,6 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // Lock body scroll when menu open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -44,21 +41,15 @@ export default function Navbar() {
 
   const go = (href) => {
     setMenuOpen(false);
-    const id = href.slice(1);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <>
-      <motion.header
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      <header
+        className="sticky top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled
-            ? 'rgba(10,10,15,0.88)'
-            : 'transparent',
+          background: scrolled ? 'rgba(250,250,245,0.85)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : 'none',
           borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
         }}
@@ -67,31 +58,10 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
 
             {/* Logo */}
-            <button
-              onClick={() => go('#home')}
-              className="flex-shrink-0"
-              aria-label="Revenue Engine Ltd home"
-            >
-              <span
-                style={{
-                  fontFamily: '"Geist Mono Variable", monospace',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  letterSpacing: '0.04em',
-                  color: 'var(--text-primary)',
-                }}
-              >
+            <button onClick={() => go('#home')} className="flex items-center gap-1.5 flex-shrink-0" aria-label="Revenue Engine Ltd home">
+              <ArrowUpRight size={16} style={{ color: 'var(--accent)' }} strokeWidth={2.5} />
+              <span style={{ fontFamily: '"Geist Mono Variable", monospace', fontSize: '13px', fontWeight: 600, letterSpacing: '0.04em', color: 'var(--text-primary)' }}>
                 REVENUE ENGINE
-              </span>
-              <span
-                style={{
-                  fontFamily: '"Geist Mono Variable", monospace',
-                  fontSize: '11px',
-                  color: 'var(--text-muted)',
-                  marginLeft: '6px',
-                }}
-              >
-                LTD
               </span>
             </button>
 
@@ -102,25 +72,12 @@ export default function Navbar() {
                   key={link.href}
                   onClick={() => go(link.href)}
                   style={{
-                    padding: '6px 14px',
-                    borderRadius: '6px',
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    color: active === link.href.slice(1)
-                      ? 'var(--text-primary)'
-                      : 'var(--text-secondary)',
-                    background: active === link.href.slice(1)
-                      ? 'var(--surface)'
-                      : 'transparent',
-                    transition: 'color 200ms, background 200ms',
-                    border: 'none',
-                    cursor: 'pointer',
+                    padding: '6px 14px', borderRadius: '6px', fontSize: '15px', fontWeight: 500,
+                    color: active === link.href.slice(1) ? 'var(--text-primary)' : 'var(--text-secondary)',
+                    background: 'transparent', transition: 'color 200ms', border: 'none', cursor: 'pointer',
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }}
-                  onMouseLeave={(e) => {
-                    if (active !== link.href.slice(1))
-                      e.currentTarget.style.color = 'var(--text-secondary)';
-                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = active === link.href.slice(1) ? 'var(--text-primary)' : 'var(--text-secondary)'; }}
                 >
                   {link.label}
                 </button>
@@ -130,37 +87,26 @@ export default function Navbar() {
             {/* Right CTA + hamburger */}
             <div className="flex items-center gap-3">
               <button
-                onClick={() => go('#contact')}
+                onClick={() => go('#voice-demo')}
                 className="hidden sm:flex btn-primary"
-                style={{ padding: '8px 18px', fontSize: '13px', borderRadius: '999px' }}
+                style={{ padding: '9px 18px', fontSize: '14px', borderRadius: '999px', minHeight: '40px' }}
               >
-                Book call
+                Talk to Ella
               </button>
 
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="lg:hidden p-2 rounded-lg transition-colors duration-200"
-                style={{ color: 'var(--text-secondary)', border: '1px solid var(--border)' }}
+                className="lg:hidden p-2 rounded-lg"
+                style={{ color: 'var(--text-primary)', border: '1px solid var(--border)' }}
                 aria-label={menuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={menuOpen}
               >
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={menuOpen ? 'x' : 'menu'}
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.12 }}
-                    className="block"
-                  >
-                    {menuOpen ? <X size={18} /> : <Menu size={18} />}
-                  </motion.span>
-                </AnimatePresence>
+                {menuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {/* Mobile overlay */}
       <AnimatePresence>
@@ -179,19 +125,13 @@ export default function Navbar() {
                   key={link.href}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.06, duration: 0.3 }}
+                  transition={{ delay: i * 0.05, duration: 0.3 }}
                   onClick={() => go(link.href)}
-                  className="w-full text-left px-4 py-4 rounded-card transition-colors duration-200"
+                  className="w-full text-left px-4 py-4 rounded-card"
                   style={{
-                    fontFamily: '"Geist Variable", sans-serif',
-                    fontSize: '22px',
-                    fontWeight: 600,
-                    color: active === link.href.slice(1)
-                      ? 'var(--text-primary)'
-                      : 'var(--text-secondary)',
-                    background: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
+                    fontFamily: '"Geist Variable", sans-serif', fontSize: '24px', fontWeight: 600,
+                    color: active === link.href.slice(1) ? 'var(--accent)' : 'var(--text-primary)',
+                    background: 'transparent', border: 'none', cursor: 'pointer',
                   }}
                 >
                   {link.label}
@@ -199,12 +139,8 @@ export default function Navbar() {
               ))}
             </div>
             <div className="px-6 pb-12">
-              <button
-                onClick={() => go('#contact')}
-                className="btn-primary w-full"
-                style={{ padding: '16px', fontSize: '16px' }}
-              >
-                Book intro call
+              <button onClick={() => go('#voice-demo')} className="btn-primary w-full" style={{ padding: '16px', fontSize: '16px' }}>
+                Talk to Ella
               </button>
             </div>
           </motion.div>

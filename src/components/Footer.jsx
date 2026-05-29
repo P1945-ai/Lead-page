@@ -8,10 +8,10 @@ const cols = {
     { label: 'Contact', href: '#contact' },
   ],
   Services: [
-    { label: 'AI Agent Development',  href: '#' },
-    { label: 'SaaS MVP Builds',       href: '#' },
-    { label: 'Growth Automation',     href: '#' },
-    { label: 'Operations Platforms',  href: '#' },
+    { label: 'AI Voice Agents',     href: '#projects' },
+    { label: 'Revenue Automation',  href: '#projects' },
+    { label: 'Custom AI Agents',    href: '#projects' },
+    { label: 'SaaS MVP Builds',     href: '#projects' },
   ],
   Legal: [
     { label: 'Privacy Policy',   href: '#' },
@@ -25,32 +25,18 @@ const cols = {
 };
 
 const go = (href) => {
-  if (!href.startsWith('#')) return;
-  const id = href.slice(1);
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  if (!href.startsWith('#') || href === '#') return;
+  document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
 };
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        background: 'var(--bg)',
-        borderTop: '1px solid var(--border)',
-        padding: '64px 24px 32px',
-      }}
-    >
+    <footer style={{ background: 'var(--surface)', borderTop: '1px solid var(--border)', padding: '64px 24px 32px' }}>
       <div className="max-w-screen-xl mx-auto">
-
-        {/* Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-16">
           {Object.entries(cols).map(([group, links]) => (
             <div key={group}>
-              <p
-                className="eyebrow block mb-5"
-                style={{ fontSize: '10px' }}
-              >
-                {group}
-              </p>
+              <p className="eyebrow block mb-5" style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{group}</p>
               <ul className="space-y-3">
                 {links.map((link) => {
                   const Icon = link.icon;
@@ -59,16 +45,8 @@ export default function Footer() {
                       <button
                         onClick={() => go(link.href)}
                         className="flex items-center gap-2"
-                        style={{
-                          fontSize: '14px',
-                          color: 'var(--text-secondary)',
-                          background: 'none',
-                          border: 'none',
-                          padding: 0,
-                          cursor: 'pointer',
-                          transition: 'color 200ms',
-                        }}
-                        onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }}
+                        style={{ fontSize: '14px', color: 'var(--text-secondary)', background: 'none', border: 'none', padding: 0, cursor: 'pointer', transition: 'color 200ms' }}
+                        onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
                         onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
                       >
                         {Icon && <Icon size={13} />}
@@ -82,34 +60,14 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom bar */}
         <div
-          style={{
-            borderTop: '1px solid var(--border)',
-            paddingTop: '24px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
           className="sm:flex-row"
+          style={{ borderTop: '1px solid var(--border)', paddingTop: '24px', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center', justifyContent: 'space-between' }}
         >
-          <span
-            style={{
-              fontFamily: '"Geist Mono Variable", monospace',
-              fontSize: '12px',
-              color: 'var(--text-muted)',
-            }}
-          >
-            REVENUE ENGINE LTD
+          <span style={{ fontFamily: '"Geist Mono Variable", monospace', fontSize: '12px', color: 'var(--text-muted)' }}>
+            REVENUE ENGINE LTD · Powered by ElevenLabs, OpenAI, Anthropic
           </span>
-          <span
-            style={{
-              fontSize: '12px',
-              color: 'var(--text-muted)',
-            }}
-          >
+          <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
             © {new Date().getFullYear()} Revenue Engine Limited. All rights reserved.
           </span>
         </div>
