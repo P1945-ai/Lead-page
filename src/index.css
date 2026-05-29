@@ -14,6 +14,10 @@
   --accent:           #5B6CFF;
   --accent-glow:      #7B8AFF;
   --success:          #10B981;
+  --accent-pink:      #FF4F9D;
+  --accent-cyan:      #00D4FF;
+  --accent-lime:      #50E3A4;
+  --accent-amber:     #FFB547;
 }
 
 /* ── Base ── */
@@ -184,6 +188,61 @@ body {
     margin: 0 auto;
   }
 
+  /* Gradient utilities */
+  .gradient-indigo-pink {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-pink) 100%);
+  }
+  .gradient-cyan-indigo {
+    background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent) 100%);
+  }
+  .gradient-amber-pink {
+    background: linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-pink) 100%);
+  }
+  .gradient-lime-cyan {
+    background: linear-gradient(135deg, var(--accent-lime) 0%, var(--accent-cyan) 100%);
+  }
+  .gradient-text-pink {
+    background: linear-gradient(135deg, var(--accent-glow) 0%, var(--accent-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Section gradient divider */
+  .section-top-divider {
+    position: relative;
+  }
+  .section-top-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 8%;
+    right: 8%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--border) 15%,
+      rgba(91,108,255,0.5) 40%,
+      rgba(255,79,157,0.4) 60%,
+      var(--border) 85%,
+      transparent 100%
+    );
+    opacity: 0.6;
+  }
+
+  /* Shimmer loading */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--surface) 25%,
+      var(--surface-elevated) 50%,
+      var(--surface) 75%
+    );
+    background-size: 400px 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
   /* Legacy compat */
   .glass-card {
     background: var(--surface);
@@ -210,6 +269,13 @@ body {
   .project-card { display: flex; flex-direction: column; }
 }
 
+/* ── CSS @property for animated gradient border ── */
+@property --gradient-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
 /* ── Mesh gradient animation ── */
 @keyframes mesh-drift-a {
   0%, 100% { transform: translate(0, 0); }
@@ -229,8 +295,44 @@ body {
   animation-iteration-count: infinite;
 }
 
+/* ── Vibrant orb keyframes ── */
+@keyframes orb-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-80px, 60px) scale(1.1); }
+  66%       { transform: translate(60px, -40px) scale(0.92); }
+}
+@keyframes orb-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(60px, -80px) scale(0.88); }
+  66%       { transform: translate(-40px, 70px) scale(1.1); }
+}
+@keyframes orb-drift-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(30px, -50px) scale(1.08); }
+}
+
+/* ── Badge pulse ── */
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* ── Animated gradient border for Pricing PRO ── */
+@keyframes gradient-rotate {
+  from { --gradient-angle: 0deg; }
+  to   { --gradient-angle: 360deg; }
+}
+
+/* ── Loading shimmer ── */
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position: 400px 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mesh-blob,
+  .orb-vibrant,
+  .shimmer,
   [data-motion-reduce] { animation: none !important; transition: none !important; }
 }
 

@@ -10,6 +10,10 @@ export const colors = {
   accent: '#5B6CFF',
   accentGlow: '#7B8AFF',
   success: '#10B981',
+  accentPink: '#FF4F9D',
+  accentCyan: '#00D4FF',
+  accentLime: '#50E3A4',
+  accentAmber: '#FFB547',
 } as const;
 
 export const typography = {

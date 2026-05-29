@@ -1,70 +1,142 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
+const statBadges = [
+  {
+    value: 'Founder-led',
+    label: 'No agency overhead',
+    gradient: 'linear-gradient(135deg, rgba(255,181,71,0.18), rgba(255,79,157,0.14))',
+    border: 'rgba(255,181,71,0.3)',
+    color: 'var(--accent-amber)',
+  },
+  {
+    value: 'Ships in days',
+    label: 'Not months',
+    gradient: 'linear-gradient(135deg, rgba(0,212,255,0.16), rgba(91,108,255,0.14))',
+    border: 'rgba(0,212,255,0.28)',
+    color: 'var(--accent-cyan)',
+  },
+  {
+    value: '12+ apps built',
+    label: 'All in-house',
+    gradient: 'linear-gradient(135deg, rgba(80,227,164,0.16), rgba(0,212,255,0.14))',
+    border: 'rgba(80,227,164,0.28)',
+    color: 'var(--accent-lime)',
+  },
+];
+
 export default function Founder() {
   return (
     <section
-      className="relative py-20 sm:py-30 px-6 lg:px-8"
-      style={{ borderTop: '1px solid var(--border)' }}
+      className="relative py-20 sm:py-30 px-6 lg:px-8 section-top-divider"
     >
       <div className="max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-          {/* Left — photo placeholder */}
+          {/* Left — photo */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-            style={{ aspectRatio: '4/5', maxHeight: '560px' }}
+            style={{ aspectRatio: '4/5', maxHeight: '560px', position: 'relative' }}
           >
             <div
               style={{
                 width: '100%',
                 height: '100%',
                 borderRadius: '16px',
-                background: 'linear-gradient(135deg, var(--surface-elevated) 0%, var(--surface) 100%)',
-                border: '1px solid var(--border)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative',
                 overflow: 'hidden',
+                position: 'relative',
+                boxShadow: '0 0 60px rgba(91,108,255,0.18), 0 24px 48px rgba(0,0,0,0.5)',
               }}
             >
-              {/* Abstract gradient placeholder */}
+              {/* Photo */}
+              <img
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80"
+                alt="Founder — Revenue Engine Limited"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+                loading="lazy"
+              />
+
+              {/* Gradient overlay */}
               <div
                 style={{
                   position: 'absolute',
-                  width: '400px',
-                  height: '400px',
-                  borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(91,108,255,0.2) 0%, transparent 70%)',
-                  top: '-100px',
-                  left: '-100px',
+                  inset: 0,
+                  background: 'linear-gradient(135deg, rgba(91,108,255,0.35) 0%, rgba(255,79,157,0.2) 100%)',
+                  mixBlendMode: 'multiply',
                 }}
               />
+
+              {/* Bottom fade for badge legibility */}
               <div
                 style={{
                   position: 'absolute',
-                  width: '300px',
-                  height: '300px',
-                  borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(123,91,255,0.15) 0%, transparent 70%)',
-                  bottom: '-80px',
-                  right: '-80px',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: '50%',
+                  background: 'linear-gradient(to top, rgba(10,10,15,0.75) 0%, transparent 100%)',
                 }}
               />
-              <span
-                className="eyebrow relative z-10"
-                style={{ fontSize: '11px', textAlign: 'center' }}
+
+              {/* Stat badges */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '20px',
+                  left: '16px',
+                  right: '16px',
+                  display: 'flex',
+                  gap: '8px',
+                  flexWrap: 'wrap',
+                }}
               >
-                FOUNDER PHOTO
-                <br />
-                <span style={{ color: 'var(--border)', marginTop: '4px', display: 'block' }}>
-                  placeholder
-                </span>
-              </span>
+                {statBadges.map((badge) => (
+                  <div
+                    key={badge.value}
+                    style={{
+                      background: badge.gradient,
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      border: `1px solid ${badge.border}`,
+                      borderRadius: '10px',
+                      padding: '8px 12px',
+                      flex: '1 1 auto',
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: '"Geist Variable", "Inter", sans-serif',
+                        fontSize: '13px',
+                        fontWeight: 700,
+                        color: badge.color,
+                        lineHeight: 1.2,
+                        marginBottom: '2px',
+                      }}
+                    >
+                      {badge.value}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: '"Geist Mono Variable", monospace',
+                        fontSize: '9px',
+                        letterSpacing: '0.07em',
+                        textTransform: 'uppercase',
+                        color: 'rgba(255,255,255,0.45)',
+                      }}
+                    >
+                      {badge.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
 
