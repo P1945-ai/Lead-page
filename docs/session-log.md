@@ -2,6 +2,58 @@
 
 ---
 
+=== SESSION HANDOFF — 2026-05-29 01:00 UTC ===
+
+TASK: Fix Netlify build config — deploy preview was publishing repo root instead of dist/
+
+CHANGES MADE:
+- netlify.toml: CREATED — build command, dist publish dir, Node 20, SPA redirect rule
+
+FILES TOUCHED:
+- netlify.toml
+
+NEW DEPENDENCIES:
+- none
+
+BREAKING CHANGES:
+- none
+
+TESTING DONE:
+- npm run build passed; dist/index.html and dist/assets/ confirmed present
+- netlify.toml committed and pushed to claude/revenue-engine-portfolio-oDFKP
+
+KNOWN ISSUES:
+- Netlify auto-rebuild takes 60–120s; deploy preview URL not yet confirmed live
+- Lighthouse scores not yet run; pending deploy confirmation
+
+DEVIATIONS FROM BRIEF:
+- none
+
+NEXT LOGICAL STEPS:
+1. Confirm Netlify deploy preview URL shows compiled site (not raw source files)
+2. Run Lighthouse audit once deploy is live — target 90+ performance, 95+ accessibility
+3. QA at 390px, 768px, 1440px viewports after live deploy confirmed
+
+DO NOT TOUCH:
+- Auth / JWT / login flow
+- Stripe integration
+- Email service mocks
+- Backend /api routes
+- Database schemas
+- Admin routes
+- Any locked sections per PROJECT_BRIEF.md
+
+ENV / CREDENTIALS NEEDED:
+- none
+
+DEPLOY STATUS:
+- netlify.toml pushed to branch claude/revenue-engine-portfolio-oDFKP (commit bcfac45)
+- Netlify rebuild triggered; awaiting auto-deploy result
+
+=== END HANDOFF ===
+
+---
+
 === SESSION HANDOFF — 2026-05-29 00:00 UTC ===
 
 TASK: Full design system rebuild — Linear/Anthropic aesthetic, remove fake content, lock tokens
