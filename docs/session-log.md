@@ -308,3 +308,96 @@ DEPLOY STATUS:
 - pushed to branch claude/revenue-engine-portfolio-oDFKP
 
 === END HANDOFF ===
+
+---
+
+=== SESSION HANDOFF — 2026-05-30 00:00 UTC ===
+
+TASK: Platform pivot — Revenue Engine repositioned as Canadian trades SaaS + Silent Loss Detector added
+
+CHANGES MADE:
+- src/components/Hero.jsx: new eyebrow/headline/subhead for trades; primary CTA scrolls to #silent-loss-detector; floating cards updated to trades events; objectPosition fix for chest-up crop; "Meet Ella. Your AI revenue assistant." caption overlay added
+- src/components/FeaturedProjects.jsx: replaced 5 generic cards with 3 engine cards (Follow-Up Machine #1e1b4b, Referral Tracker #FF4F00, Win-Back Campaign #14532d); each has "Learn more" opening CapabilityModal
+- src/components/CapabilityModal.jsx: NEW — Framer AnimatePresence modal for capability card detail; 800-1200 char detail with trades-specific use case; ESC to close
+- src/components/SilentLossDetector.jsx: NEW — 4-phase interactive section (intro/select/running/result); 8 hardcoded trade benchmarks; animated timeline with thought bubbles; loss calc display; email capture with /api/contact attribution; dark terminal card on light page
+- src/components/Industries.jsx: replaced 6 generic cards with 8 trades (Electrician/Painter/Plumber/HVAC/Roofer/Handyman/Auto Detailer/Landscaper); Lucide icons per brief; each opens IndustryModal with per-trade loss headline/pain points/solutions/quote placeholder
+- src/components/IndustryModal.jsx: NEW — per-industry detail dialog; dispatches prefill-contact event to pre-fill Contact form with industry + project; ESC to close
+- src/components/Contact.jsx: listens for prefill-contact CustomEvent; pre-fills project/industry fields; shows orange industry chip when pre-filled; added industry field to form state
+- src/components/Pricing.jsx: replaced $2,500/$7,500/$15,000 one-time tiers with Starter $197/mo, Growth $397/mo (recommended), Pro $797/mo; CTA text per tier; "Built for Canadian small businesses" footnote
+- src/components/Founder.jsx: operator framing; Canadian-built angle; "onboarding 5 founding clients" copy; badge labels updated
+- src/components/FinalCTA.jsx: headline "5 founding client spots remain"; subhead "Lock in $197/month forever before pricing increases June 1st"; CTA "Claim Your Spot"
+- src/components/Footer.jsx: Services column replaced with Product column listing 5 product items (Follow-Up Machine, Referral Tracker, Win-Back Campaign, Ella Voice Agent, Google Maps Optimizer (soon))
+- src/App.jsx: imported SilentLossDetector; inserted between FeaturedProjects and Industries
+- src/index.css: added .sld-btn hover/disabled styles for Silent Loss Detector terminal button
+
+FILES TOUCHED:
+- src/App.jsx
+- src/components/Hero.jsx
+- src/components/FeaturedProjects.jsx
+- src/components/CapabilityModal.jsx (new)
+- src/components/SilentLossDetector.jsx (new)
+- src/components/IndustryModal.jsx (new)
+- src/components/Industries.jsx
+- src/components/Contact.jsx
+- src/components/Pricing.jsx
+- src/components/Founder.jsx
+- src/components/FinalCTA.jsx
+- src/components/Footer.jsx
+- src/index.css
+
+NEW DEPENDENCIES:
+- none
+
+BREAKING CHANGES:
+- FeaturedProjects: old 5-card agency services replaced entirely; previous card data (AI Voice Agents, Revenue Automation, Custom AI Agents, SaaS MVPs, Growth Systems) removed
+- Industries: old 6 industries (Real Estate, E-commerce, Professional Services, Health & Wellness, Startups, Auto Detailing) replaced with 8 trades-specific verticals
+- Pricing: one-time project fees ($2,500/$7,500/$15,000) removed; monthly SaaS pricing replaces them entirely
+
+TESTING DONE:
+- npm run build: zero errors; 107KB gzipped main bundle + 133KB gzipped ElevenLabs chunk (pre-existing warning, not regression)
+- Build confirmed clean after rebase onto remote ella-hero.png upload commit (ae0b95a)
+- Desktop/mobile visual testing: not done — no browser available in this environment; component structure and CSS are mobile-first (flex-col on mobile, grid on lg+)
+- Console errors: none detectable at build time; no TypeScript errors
+
+KNOWN ISSUES:
+- public/images/ella-hero.png now present on branch (ae0b95a uploaded by user); Hero will display it correctly with objectPosition: center 18% for chest-up crop
+- SilentLossDetector email capture hits /api/contact which is a mock; errors are silently swallowed (fetch .catch(() => {})) — user still sees "Sent" state
+- IndustryModal testimonial quotes are all marked "PENDING REAL TESTIMONIAL" as specified
+- HowItWorks section copy still references old agency framing — not in scope of this brief but should be updated in a follow-up pass
+- PromoBar still reads "Try Ella live · 60 seconds free · No signup" — may want trades-specific messaging
+- Founder photo is still the Unsplash placeholder (no real founder photo provided)
+- ElevenLabs chunk 502KB raw (133KB gzip) — pre-existing, already code-split
+
+DEVIATIONS FROM BRIEF:
+- shadcn/ui Dialog not used: package is not installed and not in package.json; existing AnimatePresence modal pattern (used in FeaturedProjects) was followed instead — same UX outcome, no added dependency
+- SilentLossDetector email capture hits /api/contact not a dedicated endpoint; attribution fields (source, industry, estimated_annual_loss) passed as payload; backend is a mock in MVP regardless
+- Contact form has no dedicated "industry" hidden input in the original form — added as visible orange chip when pre-filled; industry value stored in form state but not in the existing form fields visible to the backend
+
+NEXT LOGICAL STEPS:
+1. Update HowItWorks section copy to reflect SaaS/trades framing (currently still agency language)
+2. Update PromoBar messaging to trades context ("Stop losing clients to slow follow-up")
+3. Replace Founder Unsplash placeholder with real founder photo
+4. Replace all "PENDING REAL TESTIMONIAL" quotes in IndustryModal with real client quotes
+5. Wire a real backend endpoint for SilentLossDetector email capture (currently hits mock /api/contact)
+6. QA at 1440px and 390px in a real browser; check animation timing on Silent Loss Detector
+7. Set VITE_ELEVENLABS_AGENT_ID in Netlify env to activate the voice demo
+8. Lighthouse audit on deploy preview (target 90+ performance)
+
+DO NOT TOUCH:
+- Auth / JWT / login flow
+- Stripe integration
+- Email service mocks
+- Backend /api routes
+- ElevenLabs widget code (EllaVoiceDemo.jsx)
+- Database schemas
+- Admin routes
+
+ENV / CREDENTIALS NEEDED:
+- VITE_ELEVENLABS_AGENT_ID (ElevenLabs dashboard → Conversational AI agent ID)
+
+DEPLOY STATUS:
+- pushed / branch claude/revenue-engine-portfolio-oDFKP
+- commit 55040ba (platform pivot, rebased cleanly on top of ae0b95a ella-hero.png upload)
+- preview URL: pending Netlify deploy trigger
+
+=== END HANDOFF ===
