@@ -3,50 +3,50 @@ import { Check, ArrowRight } from 'lucide-react';
 
 const tiers = [
   {
-    key: 'launch',
-    name: 'LAUNCH',
-    price: '$2,500',
-    monthly: '$297',
-    blurb: 'For founders ready to ship their first AI agent.',
+    key: 'starter',
+    name: 'STARTER',
+    price: '$197',
+    blurb: 'For solo operators ready to stop missing follow-ups.',
     highlight: false,
+    cta: 'Start Free 14-Day Trial',
     features: [
-      '1 custom AI agent',
-      'Voice OR chat (pick one)',
-      'Standard integrations',
-      '30-day support',
-      'Email support',
+      'Follow-Up Machine (automated 7-day client sequence)',
+      'Basic referral tracking',
+      'Up to 100 contacts',
+      'Email + SMS automation',
+      'Ella chat agent on your website',
     ],
   },
   {
-    key: 'scale',
-    name: 'SCALE',
-    price: '$7,500',
-    monthly: '$747',
-    blurb: 'For growing teams who need multi-channel AI.',
+    key: 'growth',
+    name: 'GROWTH',
+    price: '$397',
+    blurb: 'For 2–5 person operations scaling repeat business.',
     highlight: true,
+    cta: 'Start Free 14-Day Trial',
     features: [
-      '3 custom AI agents',
-      'Voice + chat + email',
-      'Premium integrations (HubSpot, Salesforce, etc.)',
-      '90-day support',
+      'Everything in Starter',
+      'Full Referral Tracker with automated rewards',
+      'Win-Back campaigns (unlimited contacts)',
+      'Google Maps rank tracking',
+      'Up to 3 staff users',
       'Priority support',
-      'Monthly optimization calls',
     ],
   },
   {
-    key: 'dominate',
-    name: 'DOMINATE',
-    price: '$15,000',
-    monthly: '$1,500',
-    blurb: 'For companies serious about AI-first operations.',
+    key: 'pro',
+    name: 'PRO',
+    price: '$797',
+    blurb: 'For established trades businesses dominating their market.',
     highlight: false,
+    cta: 'Book a Demo',
     features: [
-      'Unlimited custom AI agents',
-      'Full AI infrastructure',
-      'White-glove integration',
-      'Ongoing support',
-      'Dedicated AI strategist',
-      'Quarterly business reviews',
+      'Everything in Growth',
+      'Custom Ella voice agent answering your phone',
+      'Automated review generation',
+      'Full analytics dashboard',
+      'Dedicated onboarding call',
+      'Phone support',
     ],
   },
 ];
@@ -75,10 +75,10 @@ export default function Pricing() {
           className="section-header"
         >
           <span className="section-label">PRICING</span>
-          <h2 className="section-title">Pricing that scales with you.</h2>
+          <h2 className="section-title">Simple monthly pricing.</h2>
           <p className="section-subtitle">
-            One-time build fee covers design, development, and deployment.
-            Monthly covers hosting, operation, and optimization.
+            No setup fees. No contracts. Cancel anytime. Every plan is built to pay
+            for itself in recovered repeat business.
           </p>
         </motion.div>
 
@@ -143,12 +143,11 @@ export default function Pricing() {
                 >
                   {tier.price}
                 </span>
+                <span style={{ fontSize: '17px', color: 'var(--text-muted)', fontWeight: 500, marginLeft: '4px' }}>
+                  /month
+                </span>
               </div>
-              <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '6px', marginBottom: '16px' }}>
-                one-time + {tier.monthly}/mo
-              </p>
-
-              <p style={{ fontSize: '15px', lineHeight: 1.5, color: 'var(--text-secondary)', marginBottom: '24px' }}>
+              <p style={{ fontSize: '15px', lineHeight: 1.5, color: 'var(--text-secondary)', marginTop: '12px', marginBottom: '24px' }}>
                 {tier.blurb}
               </p>
 
@@ -167,7 +166,7 @@ export default function Pricing() {
                 onClick={() => scrollTo('contact')}
                 className={tier.highlight ? 'btn-primary w-full' : 'btn-secondary w-full'}
               >
-                Get started
+                {tier.cta}
                 <ArrowRight size={15} />
               </button>
             </motion.div>
@@ -182,7 +181,7 @@ export default function Pricing() {
           className="text-center mt-10 eyebrow"
           style={{ color: 'var(--text-muted)' }}
         >
-          All tiers include launch pricing. Prices increase after 5 founding clients.
+          Built for Canadian small businesses. Bilingual support coming Q2 2026.
         </motion.p>
       </div>
     </section>

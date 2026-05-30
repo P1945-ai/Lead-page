@@ -1,59 +1,61 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Repeat, Gift, Undo2 } from 'lucide-react';
+import CapabilityModal from './CapabilityModal';
 
-// Decagon-style capability cards — "What we build for you"
-const cards = [
+// The three automated engines, powered by Ella.
+const engines = [
   {
-    key: 'voice',
-    bg: '#2E1A47',
-    eyebrow: 'AI VOICE AGENTS',
-    big: 'Talk · 24/7',
-    bottom: 'Book calls, qualify leads, answer questions',
+    key: 'followup',
+    icon: Repeat,
+    tag: 'AUTOMATED CLIENT RETENTION',
+    title: 'Every client gets followed up. Without you lifting a finger.',
+    short: 'One tap to mark a job complete. Ella sends the thank-you, checks in at day 3, asks for a review at day 7, and re-engages at 90 days. No Mailchimp. No templates. It just runs.',
+    bg: '#1e1b4b',
+    fg: '#fff',
     detail:
-      'Always-on voice agents that answer your phone, qualify inbound leads, book meetings straight to your calendar, and handle FAQs — in a natural human voice. Built on ElevenLabs, Bland, and Vapi, tuned to your business and your tone.',
+`How it works: The moment you mark a job complete — one tap from your phone — Ella takes over. She sends a branded thank-you within minutes, checks in on day 3 to make sure everything's holding up, asks for a Google review on day 7 while the work is still fresh, and quietly re-engages the client at 90 days with a seasonal tune-up or maintenance offer. No Mailchimp account. No templates to write. No "I'll follow up later" that never happens.
+
+Who it's for: Solo operators and small crews who do great work but lose the back end — the reviews, the repeat bookings, the referrals — because following up is the first thing to fall off a busy week.
+
+For a trades business: A painter finishes a kitchen on Tuesday. By Friday the homeowner has left a 5-star review; 90 days later Ella reminds them about the exterior they mentioned — and books it. Zero admin time, more revenue per client.`,
   },
   {
-    key: 'revenue',
-    bg: '#1F5F4A',
-    eyebrow: 'REVENUE AUTOMATION',
-    big: 'Pipeline+',
-    bottom: 'From lead capture to closed-won',
+    key: 'referral',
+    icon: Gift,
+    tag: 'REWARD-BASED GROWTH',
+    title: 'Never lose track of a referral again.',
+    short: 'Every client gets a unique referral code. When their friend books, both get rewards automatically. The system remembers what your memory can’t. Referrals become predictable revenue.',
+    bg: '#FF4F00',
+    fg: '#fff',
+    hero: true,
     detail:
-      'End-to-end revenue workflows: capture leads from every channel, enrich and route them, trigger follow-ups, and push clean data to your CRM. The pipeline runs itself so your team only touches deals that are ready to close.',
+`How it works: Every client you complete a job for gets their own unique referral code automatically. When they pass it to a friend and that friend books, the system links the two, applies the reward to both sides, and logs it — without you remembering a single name. You see exactly which clients drive new business and what each referral is worth.
+
+Who it's for: Trades businesses that already get word-of-mouth but have no system to capture, reward, or grow it. If your best marketing is a happy customer's recommendation, this turns that into a repeatable channel.
+
+For a trades business: An HVAC tech installs a furnace. The homeowner refers their neighbour; both get $50 off their next service automatically. Three referrals later, the tech has booked a full week of work from one job — and the system tracked every dollar of it.`,
   },
   {
-    key: 'agents',
-    bg: '#1E3A5F',
-    eyebrow: 'CUSTOM AI AGENTS',
-    big: 'Built · For you',
-    bottom: 'Tailored to your business, not templated',
+    key: 'winback',
+    icon: Undo2,
+    tag: 'REACTIVATE OLD CLIENTS',
+    title: 'Your old client list is a goldmine. We dig it for you.',
+    short: 'Upload your contacts from QuickBooks, your phone, or anywhere. Ella finds who hasn’t come back in 6, 12, 18 months and sends personalized re-engagement messages. You approve with one tap.',
+    bg: '#14532d',
+    fg: '#fff',
     detail:
-      'Bespoke agents designed around your actual operations — your data, your tools, your edge cases. Not a generic template with your logo slapped on. We map the bottleneck, then build the agent that removes it.',
-  },
-  {
-    key: 'mvp',
-    bg: '#4A7A2E',
-    eyebrow: 'SAAS MVPS',
-    big: 'Ship · Fast',
-    bottom: 'Production-ready apps in 2-4 weeks',
-    detail:
-      'Full-stack, production-ready MVPs in 2–4 weeks. Auth, payments, dashboards, integrations — shipped and deployed, not a clickable prototype. Built to put in front of real users and real revenue immediately.',
-  },
-  {
-    key: 'growth',
-    bg: '#4A2E7A',
-    eyebrow: 'GROWTH SYSTEMS',
-    big: 'Scale · Calm',
-    bottom: 'Marketing automation that runs itself',
-    detail:
-      'Marketing and growth automation that compounds while you sleep: content engines, SEO structure, nurture sequences, and reporting. Systems that scale your reach without scaling your stress or your headcount.',
+`How it works: Upload your old contacts from QuickBooks, your phone, a spreadsheet — anywhere. Ella scans the list and flags clients who haven't booked in 6, 12, or 18 months, then drafts personalized re-engagement messages tuned to how long they've been gone and what they bought last time. You review the batch and approve with one tap. The ones who reply land straight in your calendar.
+
+Who it's for: Established trades businesses sitting on years of past customers they've lost touch with — a list that's quietly worth more than any ad spend.
+
+For a trades business: A landscaper uploads 400 old clients. Ella identifies 90 who haven't booked since last spring and sends a seasonal clean-up offer. 14 reply, 9 book. That's a month of revenue recovered from contacts that were collecting dust.`,
   },
 ];
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 const cardAnim = {
   hidden: { opacity: 0, y: 12 },
@@ -62,11 +64,6 @@ const cardAnim = {
 
 export default function FeaturedProjects() {
   const [selected, setSelected] = useState(null);
-
-  useEffect(() => {
-    document.body.style.overflow = selected ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [selected]);
 
   return (
     <>
@@ -79,10 +76,11 @@ export default function FeaturedProjects() {
             transition={{ duration: 0.5 }}
             className="section-header"
           >
-            <span className="section-label">WHAT WE BUILD</span>
-            <h2 className="section-title">What we build for you.</h2>
+            <span className="section-label">WHAT WE BUILD FOR YOU</span>
+            <h2 className="section-title">Three engines. One AI running them.</h2>
             <p className="section-subtitle">
-              Five systems that do the work — so you keep the leverage and lose the headcount.
+              Ella handles the follow-ups, referrals, and win-backs that grow repeat
+              revenue — the work that always falls off your plate when you're busy.
             </p>
           </motion.div>
 
@@ -91,138 +89,77 @@ export default function FeaturedProjects() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: '-40px' }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4"
+            className="grid grid-cols-1 md:grid-cols-3 gap-5"
           >
-            {cards.map((card) => (
-              <motion.button
-                key={card.key}
-                variants={cardAnim}
-                onClick={() => setSelected(card)}
-                className="text-left"
-                style={{
-                  background: card.bg,
-                  borderRadius: '16px',
-                  padding: '32px',
-                  minHeight: '260px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: 'transform 200ms cubic-bezier(0.4,0,0.2,1), box-shadow 200ms',
-                  color: '#fff',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.02)';
-                  e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-                aria-label={`Learn more about ${card.eyebrow}`}
-              >
-                <span
+            {engines.map((card) => {
+              const Icon = card.icon;
+              return (
+                <motion.div
+                  key={card.key}
+                  variants={cardAnim}
                   style={{
-                    fontFamily: '"Geist Mono Variable", monospace',
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    letterSpacing: '0.1em',
-                    color: 'rgba(255,255,255,0.7)',
+                    background: card.bg,
+                    borderRadius: '20px',
+                    padding: '32px',
+                    minHeight: '340px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    color: card.fg,
+                    boxShadow: card.hero ? '0 12px 40px rgba(255,79,0,0.3)' : 'var(--shadow-md)',
+                    transition: 'transform 200ms cubic-bezier(0.4,0,0.2,1), box-shadow 200ms',
                   }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
-                  {card.eyebrow}
-                </span>
-
-                <div style={{ margin: '24px 0' }}>
-                  <span
-                    style={{
-                      fontFamily: '"Geist Variable", "Inter", sans-serif',
-                      fontSize: '30px',
-                      fontWeight: 700,
-                      letterSpacing: '-0.02em',
-                      lineHeight: 1.1,
-                    }}
-                  >
-                    {card.big}
+                  <span style={{
+                    width: '44px', height: '44px', borderRadius: '12px',
+                    background: 'rgba(255,255,255,0.15)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    marginBottom: '20px',
+                  }}>
+                    <Icon size={22} />
                   </span>
-                </div>
 
-                <span style={{ fontSize: '14px', lineHeight: 1.5, color: 'rgba(255,255,255,0.82)' }}>
-                  {card.bottom}
-                </span>
-              </motion.button>
-            ))}
+                  <span style={{ fontFamily: '"Geist Mono Variable", monospace', fontSize: '11px', fontWeight: 600, letterSpacing: '0.1em', opacity: 0.75 }}>
+                    {card.tag}
+                  </span>
+
+                  <h3 style={{
+                    fontFamily: '"Geist Variable", "Inter", sans-serif',
+                    fontSize: '23px', fontWeight: 700, letterSpacing: '-0.02em',
+                    lineHeight: 1.2, margin: '10px 0 14px',
+                  }}>
+                    {card.title}
+                  </h3>
+
+                  <p style={{ fontSize: '14px', lineHeight: 1.6, opacity: 0.85, marginBottom: '22px', flex: 1 }}>
+                    {card.short}
+                  </p>
+
+                  <button
+                    onClick={() => setSelected(card)}
+                    aria-label={`Learn more about ${card.title}`}
+                    style={{
+                      alignSelf: 'flex-start',
+                      display: 'inline-flex', alignItems: 'center', gap: '6px',
+                      background: 'rgba(255,255,255,0.16)', color: '#fff',
+                      border: 'none', borderRadius: '999px', padding: '9px 18px',
+                      fontSize: '14px', fontWeight: 600, cursor: 'pointer',
+                      transition: 'background 200ms',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.28)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.16)'; }}
+                  >
+                    Learn more
+                  </button>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
 
-      {/* Detail modal */}
-      <AnimatePresence>
-        {selected && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setSelected(null)}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-            style={{ background: 'rgba(26,26,26,0.5)', backdropFilter: 'blur(4px)' }}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 16, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.98 }}
-              transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-              onClick={(e) => e.stopPropagation()}
-              role="dialog"
-              aria-modal="true"
-              style={{
-                background: 'var(--surface)',
-                borderRadius: '20px',
-                maxWidth: '520px',
-                width: '100%',
-                boxShadow: 'var(--shadow-lg)',
-                overflow: 'hidden',
-              }}
-            >
-              <div style={{ background: selected.bg, padding: '32px', position: 'relative' }}>
-                <button
-                  onClick={() => setSelected(null)}
-                  aria-label="Close"
-                  style={{
-                    position: 'absolute', top: '16px', right: '16px',
-                    background: 'rgba(255,255,255,0.15)', border: 'none', borderRadius: '8px',
-                    width: '32px', height: '32px', display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', cursor: 'pointer', color: '#fff',
-                  }}
-                >
-                  <X size={16} />
-                </button>
-                <span style={{ fontFamily: '"Geist Mono Variable", monospace', fontSize: '11px', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.7)' }}>
-                  {selected.eyebrow}
-                </span>
-                <div style={{ marginTop: '12px', fontFamily: '"Geist Variable", "Inter", sans-serif', fontSize: '32px', fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>
-                  {selected.big}
-                </div>
-              </div>
-
-              <div style={{ padding: '32px' }}>
-                <p style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--text-secondary)', marginBottom: '28px' }}>
-                  {selected.detail}
-                </p>
-                <button
-                  onClick={() => { setSelected(null); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                  className="btn-primary w-full"
-                >
-                  Book a call about this
-                  <ArrowRight size={16} />
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <CapabilityModal card={selected} onClose={() => setSelected(null)} />
     </>
   );
 }

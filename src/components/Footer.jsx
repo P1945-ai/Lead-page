@@ -7,11 +7,12 @@ const cols = {
     { label: 'Pricing', href: '#pricing' },
     { label: 'Contact', href: '#contact' },
   ],
-  Services: [
-    { label: 'AI Voice Agents',     href: '#projects' },
-    { label: 'Revenue Automation',  href: '#projects' },
-    { label: 'Custom AI Agents',    href: '#projects' },
-    { label: 'SaaS MVP Builds',     href: '#projects' },
+  Product: [
+    { label: 'Follow-Up Machine',            href: '#projects' },
+    { label: 'Referral Tracker',             href: '#projects' },
+    { label: 'Win-Back Campaign',            href: '#projects' },
+    { label: 'Ella Voice Agent',             href: '#voice-demo' },
+    { label: 'Google Maps Optimizer (soon)', href: '#' },
   ],
   Legal: [
     { label: 'Privacy Policy',   href: '#' },

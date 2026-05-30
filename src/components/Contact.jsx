@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, Clock, CheckCircle2, MessageSquare, ArrowRight } from 'lucide-react';
 
@@ -19,9 +19,20 @@ const contactInfo = [
 ];
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', project: '', budget: '', timeline: '', message: '' });
+  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', project: '', budget: '', timeline: '', message: '', industry: '' });
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+
+  // Pre-fill from the industry modals ("See How It Works For [Industry]").
+  useEffect(() => {
+    const onPrefill = (e) => {
+      const { industry = '', project = '' } = e.detail || {};
+      setForm((f) => ({ ...f, industry, project: project || f.project }));
+      setSubmitted(false);
+    };
+    window.addEventListener('prefill-contact', onPrefill);
+    return () => window.removeEventListener('prefill-contact', onPrefill);
+  }, []);
 
   const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   const handleSubmit = async (e) => {
@@ -118,6 +129,11 @@ export default function Contact() {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="glass-card p-5 sm:p-7 space-y-4">
+                {form.industry && (
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,79,0,0.1)', color: 'var(--accent)', borderRadius: '999px', padding: '6px 14px', fontSize: '13px', fontWeight: 600 }}>
+                    Industry: {form.industry}
+                  </div>
+                )}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label style={labelStyle}>Full Name <span style={{ color: 'var(--accent)' }}>*</span></label>

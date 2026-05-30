@@ -301,6 +301,10 @@ body {
   [data-motion-reduce] { animation: none !important; transition: none !important; }
 }
 
+/* Silent Loss Detector terminal button */
+.sld-btn:hover { background: var(--accent-hover) !important; }
+.sld-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
 /* ── Mobile ── */
 @media (max-width: 640px) {
   .btn-primary,

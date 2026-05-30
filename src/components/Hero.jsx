@@ -32,15 +32,15 @@ export default function Hero() {
           {/* LEFT — copy */}
           <div>
             <motion.div {...fadeUp(0)}>
-              <span className="eyebrow">REVENUE ENGINE LTD</span>
+              <span className="eyebrow">REVENUE ENGINE FOR TRADES</span>
             </motion.div>
 
             <motion.h1
               {...fadeUp(0.08)}
               style={{
                 fontFamily: '"Geist Variable", "Inter", sans-serif',
-                fontSize: 'clamp(56px, 8vw, 96px)',
-                lineHeight: 1.02,
+                fontSize: 'clamp(44px, 6.5vw, 80px)',
+                lineHeight: 1.05,
                 letterSpacing: '-0.02em',
                 fontWeight: 700,
                 color: 'var(--text-primary)',
@@ -48,33 +48,34 @@ export default function Hero() {
                 marginBottom: '24px',
               }}
             >
-              Meet Ella. Your AI revenue engine.
+              More repeat clients. More referrals. Zero extra work.
             </motion.h1>
 
             <motion.p
               {...fadeUp(0.16)}
               style={{
-                fontSize: '24px',
-                lineHeight: 1.5,
+                fontSize: '20px',
+                lineHeight: 1.55,
                 color: 'var(--text-secondary)',
-                maxWidth: '540px',
+                maxWidth: '560px',
                 marginBottom: '36px',
               }}
             >
-              Custom AI agents, automation, and growth systems for founders who want
-              leverage — not headcount. Try Ella live below.
+              Ella is the AI that runs follow-ups, tracks referrals, and wins back old
+              clients — automatically. Built for small Canadian businesses who don't
+              have time for marketing.
             </motion.p>
 
             <motion.div
               {...fadeUp(0.24)}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6"
             >
-              <button onClick={() => scrollTo('voice-demo')} className="btn-primary">
-                Talk to Ella now
+              <button onClick={() => scrollTo('silent-loss-detector')} className="btn-primary">
+                See What You're Losing
                 <ArrowRight size={16} />
               </button>
-              <button onClick={() => scrollTo('contact')} className="btn-secondary">
-                Book a call
+              <button onClick={() => scrollTo('voice-demo')} className="btn-secondary">
+                Talk to Ella
               </button>
             </motion.div>
 
@@ -114,9 +115,9 @@ export default function Hero() {
               {imgOk ? (
                 <img
                   src="/images/ella-hero.png"
-                  alt="Ella — your AI revenue agent"
+                  alt="Ella — your AI revenue assistant"
                   onError={() => setImgOk(false)}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 18%', display: 'block' }}
                 />
               ) : (
                 <div
@@ -138,6 +139,22 @@ export default function Hero() {
                   </span>
                 </div>
               )}
+
+              {/* Name caption */}
+              <div
+                style={{
+                  position: 'absolute', left: 0, right: 0, bottom: 0,
+                  padding: '40px 20px 18px',
+                  background: 'linear-gradient(to top, rgba(26,26,26,0.78), rgba(26,26,26,0))',
+                }}
+              >
+                <div style={{ fontFamily: '"Geist Variable", "Inter", sans-serif', fontSize: '18px', fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>
+                  Meet Ella.
+                </div>
+                <div style={{ fontFamily: '"Geist Mono Variable", monospace', fontSize: '12px', letterSpacing: '0.04em', color: 'rgba(255,255,255,0.85)', marginTop: '2px' }}>
+                  Your AI revenue assistant
+                </div>
+              </div>
             </div>
 
             {/* Floating product cards — hidden on mobile */}
@@ -145,22 +162,22 @@ export default function Hero() {
               className="float-a hidden md:flex"
               style={{ top: '-18px', right: '-26px' }}
               icon={<MessageSquare size={15} style={{ color: 'var(--accent)' }} />}
-              title="Lead captured"
-              meta="11:42 PM"
+              title="5-star review posted"
+              meta="Day 7 · auto"
             />
             <FloatCard
               className="float-b hidden md:flex"
-              style={{ bottom: '32px', left: '-40px' }}
+              style={{ bottom: '60px', left: '-40px' }}
               icon={<Calendar size={15} style={{ color: 'var(--accent-secondary)' }} />}
-              title="Call booked"
-              meta="TechStack <> Demo"
+              title="Referral booked"
+              meta="+$50 reward"
             />
             <FloatCard
               className="float-c hidden md:flex"
               style={{ top: '46%', right: '-46px' }}
               icon={<span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--success)', display: 'inline-block' }} />}
-              title="Status: Active"
-              meta="24/7"
+              title="Win-back replied"
+              meta="9 mo · re-engaged"
             />
           </motion.div>
         </div>

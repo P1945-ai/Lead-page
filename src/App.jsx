@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustBar from './components/TrustBar';
 import FeaturedProjects from './components/FeaturedProjects';
+import SilentLossDetector from './components/SilentLossDetector';
 import Industries from './components/Industries';
 import HowItWorks from './components/HowItWorks';
 import Pricing from './components/Pricing';
@@ -38,6 +39,7 @@ export default function App() {
         </Suspense>
         <TrustBar />
         <FeaturedProjects />
+        <SilentLossDetector />
         <Industries />
         <HowItWorks />
         <Pricing />

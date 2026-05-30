@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 const badges = [
-  { label: 'Founder-led',          bg: 'var(--accent)',           color: '#fff' },
-  { label: 'Ships in days',        bg: 'var(--accent-secondary)', color: '#fff' },
-  { label: 'Built 12+ AI systems', bg: '#1A1A1A',                 color: '#fff' },
+  { label: 'Operator, not agency',  bg: 'var(--accent)',           color: '#fff' },
+  { label: 'Canadian-built',        bg: 'var(--accent-secondary)', color: '#fff' },
+  { label: 'Onboarding 5 founders', bg: '#1A1A1A',                 color: '#fff' },
 ];
 
 export default function Founder() {
@@ -57,22 +57,23 @@ export default function Founder() {
                 marginBottom: '24px',
               }}
             >
-              Built by an operator who runs real businesses.
+              Built by an operator who lost the same money you're losing.
             </h2>
 
             <div style={{ fontSize: '17px', lineHeight: 1.75, color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '28px' }}>
               <p>
-                Revenue Engine Limited was started by someone who spent years inside businesses
-                — not just building software for them. Every system we build reflects that
-                operational perspective.
+                Revenue Engine wasn't built in an agency. It was built by someone who ran his
+                own businesses and watched real revenue walk out the door — quotes never chased,
+                reviews never asked for, past clients never called back.
               </p>
               <p>
-                We don't design for demos. We design for daily use, real revenue cycles, and the
-                teams who operate what we ship. That's a different mindset than most agencies bring.
+                The follow-ups, referrals, and win-backs that grow a trades business are exactly
+                the work that disappears when you're on the tools all day. So we built the system
+                that does it automatically — the one I wished I'd had.
               </p>
               <p>
-                We work with a small number of clients at a time, intentionally — close to the
-                work, accountable for the outcome.
+                Canadian-built for Canadian small business. We're onboarding 5 founding clients at
+                launch pricing — close to the work, accountable for the outcome.
               </p>
             </div>
 

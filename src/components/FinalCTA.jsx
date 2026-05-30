@@ -32,11 +32,11 @@ export default function FinalCTA() {
               marginBottom: '20px',
             }}
           >
-            Ready to deploy your AI advantage?
+            5 founding client spots remain at launch pricing.
           </h2>
 
           <p style={{ fontSize: '18px', lineHeight: 1.6, color: 'var(--text-secondary)', maxWidth: '520px', margin: '0 auto 36px' }}>
-            5 founding client spots remain at launch pricing. Lock yours before they're gone.
+            Lock in $197/month forever before pricing increases June 1st.
           </p>
 
           <button
@@ -44,7 +44,7 @@ export default function FinalCTA() {
             className="btn-primary"
             style={{ padding: '16px 36px', fontSize: '16px' }}
           >
-            Book your intro call
+            Claim Your Spot
             <ArrowRight size={17} />
           </button>
 
