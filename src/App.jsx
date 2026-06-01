@@ -1,53 +1,55 @@
 import { lazy, Suspense } from 'react';
-import PromoBar from './components/PromoBar';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import TrustBar from './components/TrustBar';
-import FeaturedProjects from './components/FeaturedProjects';
-import SilentLossDetector from './components/SilentLossDetector';
-import Industries from './components/Industries';
-import HowItWorks from './components/HowItWorks';
-import Pricing from './components/Pricing';
-import Founder from './components/Founder';
-import Contact from './components/Contact';
-import FinalCTA from './components/FinalCTA';
-import Footer from './components/Footer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './pages/Home';
 
-// Code-split: the ElevenLabs SDK loads as its own async chunk after first paint.
-const EllaVoiceDemo = lazy(() => import('./components/EllaVoiceDemo'));
+// Services
+const ServicesIndex = lazy(() => import('./pages/Services'));
+const VoiceAgents = lazy(() => import('./pages/services/VoiceAgents'));
+const FollowUpMachine = lazy(() => import('./pages/services/FollowUpMachine'));
+const ReferralTracker = lazy(() => import('./pages/services/ReferralTracker'));
+const WinBack = lazy(() => import('./pages/services/WinBack'));
+const CustomBuilds = lazy(() => import('./pages/services/CustomBuilds'));
+const VideoCreation = lazy(() => import('./pages/services/VideoCreation'));
 
-function VoiceDemoFallback() {
+// Work
+const Work = lazy(() => import('./pages/Work'));
+const OmadCase = lazy(() => import('./pages/work/Omad'));
+const RoadReadyCase = lazy(() => import('./pages/work/RoadReady'));
+const LocalBoostCase = lazy(() => import('./pages/work/LocalBoost'));
+
+// About
+const About = lazy(() => import('./pages/About'));
+
+function PageLoader() {
   return (
-    <section
-      id="voice-demo"
-      className="py-20 sm:py-30 px-6"
-      style={{ background: 'var(--surface-warm)', minHeight: '520px' }}
-      aria-busy="true"
-    />
+    <div style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <span style={{ width: '28px', height: '28px', border: '3px solid var(--border)', borderTopColor: 'var(--accent)', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.8s linear infinite' }} />
+    </div>
   );
 }
 
 export default function App() {
   return (
-    <div style={{ background: 'var(--bg)', color: 'var(--text-primary)', minHeight: '100vh' }}>
-      <PromoBar />
-      <Navbar />
-      <main>
-        <Hero />
-        <Suspense fallback={<VoiceDemoFallback />}>
-          <EllaVoiceDemo />
-        </Suspense>
-        <TrustBar />
-        <FeaturedProjects />
-        <SilentLossDetector />
-        <Industries />
-        <HowItWorks />
-        <Pricing />
-        <Founder />
-        <Contact />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="services" element={<Suspense fallback={<PageLoader />}><ServicesIndex /></Suspense>} />
+          <Route path="services/voice-agents" element={<Suspense fallback={<PageLoader />}><VoiceAgents /></Suspense>} />
+          <Route path="services/follow-up-machine" element={<Suspense fallback={<PageLoader />}><FollowUpMachine /></Suspense>} />
+          <Route path="services/referral-tracker" element={<Suspense fallback={<PageLoader />}><ReferralTracker /></Suspense>} />
+          <Route path="services/win-back" element={<Suspense fallback={<PageLoader />}><WinBack /></Suspense>} />
+          <Route path="services/custom-builds" element={<Suspense fallback={<PageLoader />}><CustomBuilds /></Suspense>} />
+          <Route path="services/video-creation" element={<Suspense fallback={<PageLoader />}><VideoCreation /></Suspense>} />
+          <Route path="work" element={<Suspense fallback={<PageLoader />}><Work /></Suspense>} />
+          <Route path="work/omad" element={<Suspense fallback={<PageLoader />}><OmadCase /></Suspense>} />
+          <Route path="work/road-ready" element={<Suspense fallback={<PageLoader />}><RoadReadyCase /></Suspense>} />
+          <Route path="work/localboost" element={<Suspense fallback={<PageLoader />}><LocalBoostCase /></Suspense>} />
+          <Route path="about" element={<Suspense fallback={<PageLoader />}><About /></Suspense>} />
+          <Route path="*" element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

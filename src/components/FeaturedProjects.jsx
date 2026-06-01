@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Repeat, Gift, Undo2 } from 'lucide-react';
-import CapabilityModal from './CapabilityModal';
 
 // The three automated engines, powered by Ella.
 const engines = [
   {
     key: 'followup',
+    to: '/services/follow-up-machine',
     icon: Repeat,
     tag: 'AUTOMATED CLIENT RETENTION',
     title: 'Every client gets followed up. Without you lifting a finger.',
@@ -22,6 +22,7 @@ For a trades business: A painter finishes a kitchen on Tuesday. By Friday the ho
   },
   {
     key: 'referral',
+    to: '/services/referral-tracker',
     icon: Gift,
     tag: 'REWARD-BASED GROWTH',
     title: 'Never lose track of a referral again.',
@@ -38,6 +39,7 @@ For a trades business: An HVAC tech installs a furnace. The homeowner refers the
   },
   {
     key: 'winback',
+    to: '/services/win-back',
     icon: Undo2,
     tag: 'REACTIVATE OLD CLIENTS',
     title: 'Your old client list is a goldmine. We dig it for you.',
@@ -63,10 +65,7 @@ const cardAnim = {
 };
 
 export default function FeaturedProjects() {
-  const [selected, setSelected] = useState(null);
-
   return (
-    <>
       <section id="projects" className="relative py-20 sm:py-30 px-6 lg:px-8 section-top-divider" style={{ background: 'var(--bg)' }}>
         <div className="max-w-screen-xl mx-auto">
           <motion.div
@@ -136,11 +135,11 @@ export default function FeaturedProjects() {
                     {card.short}
                   </p>
 
-                  <button
-                    onClick={() => setSelected(card)}
+                  <Link
+                    to={card.to}
                     aria-label={`Learn more about ${card.title}`}
                     style={{
-                      alignSelf: 'flex-start',
+                      alignSelf: 'flex-start', textDecoration: 'none',
                       display: 'inline-flex', alignItems: 'center', gap: '6px',
                       background: 'rgba(255,255,255,0.16)', color: '#fff',
                       border: 'none', borderRadius: '999px', padding: '9px 18px',
@@ -150,16 +149,13 @@ export default function FeaturedProjects() {
                     onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.28)'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.16)'; }}
                   >
-                    Learn more
-                  </button>
+                    Learn more →
+                  </Link>
                 </motion.div>
               );
             })}
           </motion.div>
         </div>
       </section>
-
-      <CapabilityModal card={selected} onClose={() => setSelected(null)} />
-    </>
   );
 }

@@ -1,22 +1,26 @@
 import { Github, Twitter, Linkedin } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const cols = {
-  Studio: [
-    { label: 'Work',    href: '#projects' },
-    { label: 'Process', href: '#process' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Contact', href: '#contact' },
+  Company: [
+    { label: 'Home',     to: '/' },
+    { label: 'Services', to: '/services' },
+    { label: 'Work',     to: '/work' },
+    { label: 'About',    to: '/about' },
+    { label: 'Contact',  section: 'contact' },
   ],
-  Product: [
-    { label: 'Follow-Up Machine',            href: '#projects' },
-    { label: 'Referral Tracker',             href: '#projects' },
-    { label: 'Win-Back Campaign',            href: '#projects' },
-    { label: 'Ella Voice Agent',             href: '#voice-demo' },
-    { label: 'Google Maps Optimizer (soon)', href: '#' },
+  Services: [
+    { label: 'AI Voice Agents',     to: '/services/voice-agents' },
+    { label: 'Follow-Up Machine',   to: '/services/follow-up-machine' },
+    { label: 'Referral Tracker',    to: '/services/referral-tracker' },
+    { label: 'Win-Back Campaign',   to: '/services/win-back' },
+    { label: 'Custom AI & SaaS',    to: '/services/custom-builds' },
+    { label: 'AI Video Creation',   to: '/services/video-creation' },
   ],
-  Legal: [
-    { label: 'Privacy Policy',   href: '#' },
-    { label: 'Terms of Service', href: '#' },
+  Work: [
+    { label: 'OMAD International', to: '/work/omad' },
+    { label: 'Road Ready',        to: '/work/road-ready' },
+    { label: 'LocalBoost',        to: '/work/localboost' },
   ],
   Connect: [
     { label: 'GitHub',   href: '#', icon: Github },
@@ -25,12 +29,24 @@ const cols = {
   ],
 };
 
-const go = (href) => {
-  if (!href.startsWith('#') || href === '#') return;
-  document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
+const linkStyle = {
+  fontSize: '14px', color: 'var(--text-secondary)', background: 'none', border: 'none',
+  padding: 0, cursor: 'pointer', transition: 'color 200ms', textDecoration: 'none',
+  display: 'flex', alignItems: 'center', gap: '8px',
 };
 
 export default function Footer() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const goSection = (id) => {
+    if (location.pathname !== '/') navigate('/', { state: { scrollTo: id } });
+    else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const hoverIn = (e) => { e.currentTarget.style.color = 'var(--accent)'; };
+  const hoverOut = (e) => { e.currentTarget.style.color = 'var(--text-secondary)'; };
+
   return (
     <footer style={{ background: 'var(--surface)', borderTop: '1px solid var(--border)', padding: '64px 24px 32px' }}>
       <div className="max-w-screen-xl mx-auto">
@@ -43,16 +59,20 @@ export default function Footer() {
                   const Icon = link.icon;
                   return (
                     <li key={link.label}>
-                      <button
-                        onClick={() => go(link.href)}
-                        className="flex items-center gap-2"
-                        style={{ fontSize: '14px', color: 'var(--text-secondary)', background: 'none', border: 'none', padding: 0, cursor: 'pointer', transition: 'color 200ms' }}
-                        onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
-                      >
-                        {Icon && <Icon size={13} />}
-                        {link.label}
-                      </button>
+                      {link.to ? (
+                        <Link to={link.to} style={linkStyle} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+                          {link.label}
+                        </Link>
+                      ) : link.section ? (
+                        <button onClick={() => goSection(link.section)} style={linkStyle} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+                          {link.label}
+                        </button>
+                      ) : (
+                        <a href={link.href} style={linkStyle} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>
+                          {Icon && <Icon size={13} />}
+                          {link.label}
+                        </a>
+                      )}
                     </li>
                   );
                 })}
@@ -66,7 +86,7 @@ export default function Footer() {
           style={{ borderTop: '1px solid var(--border)', paddingTop: '24px', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center', justifyContent: 'space-between' }}
         >
           <span style={{ fontFamily: '"Geist Mono Variable", monospace', fontSize: '12px', color: 'var(--text-muted)' }}>
-            REVENUE ENGINE LTD · Powered by ElevenLabs, OpenAI, Anthropic
+            REVENUE ENGINE LTD · Toronto · Powered by ElevenLabs, OpenAI, Anthropic
           </span>
           <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
             © {new Date().getFullYear()} Revenue Engine Limited. All rights reserved.

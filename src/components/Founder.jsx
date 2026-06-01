@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 const badges = [
@@ -96,20 +97,20 @@ export default function Founder() {
               ))}
             </div>
 
-            <button
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            <Link
+              to="/about"
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '6px',
                 fontSize: '15px', fontWeight: 600, color: 'var(--accent)',
                 background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-                transition: 'color 200ms',
+                transition: 'color 200ms', textDecoration: 'none',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent-hover)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
             >
-              Read the full story
+              Meet the founders
               <ArrowRight size={15} />
-            </button>
+            </Link>
           </motion.div>
         </div>
       </div>

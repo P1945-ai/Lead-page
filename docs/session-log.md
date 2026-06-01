@@ -401,3 +401,233 @@ DEPLOY STATUS:
 - preview URL: pending Netlify deploy trigger
 
 === END HANDOFF ===
+
+=== SESSION HANDOFF — 2026-06-01 00:00 UTC ===
+
+TASK: Create RoadReady.jsx case-study page for Road Ready private jet detailing client.
+
+CHANGES MADE:
+- src/pages/work/RoadReady.jsx: Authored full case-study page with hero, 6 sections, inline SVG tile illustrations, ProcessFlow, StatCounter, Swatches, Chips, and CTA.
+- src/pages/work/Omad.jsx: Fixed pre-existing unescaped apostrophe in PDAC tile desc string (build blocker, minimal change).
+
+FILES TOUCHED:
+- /home/user/Lead-page/src/pages/work/RoadReady.jsx
+- /home/user/Lead-page/src/pages/work/Omad.jsx
+
+NEW DEPENDENCIES:
+- none
+
+BREAKING CHANGES:
+- none
+
+TESTING DONE:
+- npm run build: passed, RoadReady-CIFZq5wc.js emitted at 11.15 kB.
+
+KNOWN ISSUES:
+- none
+
+DEVIATIONS FROM BRIEF:
+- Fixed Omad.jsx apostrophe bug (pre-existing, blocked build, not a design change).
+
+NEXT LOGICAL STEPS:
+1. Wire RoadReady route in App.jsx if not already present.
+2. Add Road Ready card to Work.jsx featured projects grid.
+3. Review on 390px mobile viewport in browser.
+
+DO NOT TOUCH:
+- Auth / JWT / login flow
+- Stripe integration
+- Email service mocks
+- Backend /api routes
+- Database schemas
+- Admin routes
+- Any locked sections per PROJECT_BRIEF.md
+
+ENV / CREDENTIALS NEEDED:
+- none
+
+DEPLOY STATUS:
+- pending / branch claude/revenue-engine-portfolio-oDFKP
+
+=== END HANDOFF ===
+
+---
+
+=== SESSION HANDOFF — 2026-06-01 00:00 UTC ===
+
+TASK: Create LocalBoost case-study page at src/pages/work/LocalBoost.jsx
+
+CHANGES MADE:
+- src/pages/work/LocalBoost.jsx: Full Apple/Linear-grade case study page replacing stub; all sections, live visuals, SEO.
+
+FILES TOUCHED:
+- src/pages/work/LocalBoost.jsx
+
+NEW DEPENDENCIES:
+- none
+
+BREAKING CHANGES:
+- none
+
+TESTING DONE:
+- npm run build — succeeded in 8.32s, zero errors, zero new warnings
+
+KNOWN ISSUES:
+- none
+
+DEVIATIONS FROM BRIEF:
+- CaseHero visual grid uses CSS grid classes (grid-cols-1 lg:grid-cols-2) as specified; stacks on mobile 390px.
+- LocalBoostIllustration imported but not used in final layout (MapPackVisualization used in hero instead, per brief); import kept to match allowed-import list.
+
+NEXT LOGICAL STEPS:
+1. Wire LocalBoost route in router if not already registered.
+2. Link from Work.jsx gallery card to /work/local-boost.
+3. Verify mobile layout at 390px in browser.
+
+DO NOT TOUCH:
+- Auth / JWT / login flow
+- Stripe integration
+- Email service mocks
+- Backend /api routes
+- Database schemas
+- Admin routes
+- Any locked sections per PROJECT_BRIEF.md
+
+ENV / CREDENTIALS NEEDED:
+- none
+
+DEPLOY STATUS:
+- pending / branch claude/revenue-engine-portfolio-oDFKP
+
+=== END HANDOFF ===
+
+---
+
+=== SESSION HANDOFF — 2026-06-01 00:00 UTC ===
+
+TASK: Create /src/pages/About.jsx — premium About page with founders, mission, approach, and Canadian facts.
+
+CHANGES MADE:
+- src/pages/About.jsx: full page written from stub; hero + 5 sections + final CTA.
+
+FILES TOUCHED:
+- src/pages/About.jsx
+
+NEW DEPENDENCIES:
+- none
+
+BREAKING CHANGES:
+- none
+
+TESTING DONE:
+- npm run build → passed, 2698 modules, 0 errors, 8.39s
+
+KNOWN ISSUES:
+- none
+
+DEVIATIONS FROM BRIEF:
+- none
+
+NEXT LOGICAL STEPS:
+1. Shawan Young to supply final bio text for his founder card.
+2. Confirm /work/omad route resolves correctly (currently exists in App.jsx).
+3. Review founder photos for crop/position at mobile sizes.
+
+DO NOT TOUCH:
+- Auth / JWT / login flow
+- Stripe integration
+- Email service mocks
+- Backend /api routes
+- Database schemas
+- Admin routes
+- Any locked sections per PROJECT_BRIEF.md
+
+ENV / CREDENTIALS NEEDED:
+- none
+
+DEPLOY STATUS:
+- pending
+
+=== END HANDOFF ===
+
+---
+
+=== SESSION HANDOFF — 2026-06-01 03:30 UTC ===
+
+TASK: Multi-page platform rebuild — 13 routes, React Router, live-built visual library, Apple-grade design
+
+CHANGES MADE:
+- Installed react-router-dom@7 + recharts@3
+- src/App.jsx: converted to BrowserRouter with Layout + 13 lazy-loaded routes
+- src/components/Layout.jsx: NEW — PromoBar+Navbar+Outlet+Footer, ScrollManager (top on route change, section scroll via nav state)
+- src/components/Navbar.jsx: router-aware (Link + cross-page section scroll)
+- src/components/Footer.jsx: router-aware, Company/Services/Work/Connect columns
+- src/components/PromoBar.jsx: router-aware section scroll
+- src/components/Hero.jsx, FeaturedProjects.jsx, Founder.jsx, HowItWorks.jsx: link to new routes; HowItWorks now uses ProcessFlow
+- src/components/FeaturedWork.jsx: NEW — homepage case-study previews with live SVG illustrations
+- src/components/visuals/: NEW library (10) — AnimatedDashboard, PhoneMockup, MapPackVisualization, FunnelChart, VoiceWaveform, StatCounter, ProcessFlow, ServiceIcon, GradientCard, ComparisonSlider + CaseIllustrations (Omad/RoadReady/LocalBoost drawn SVGs)
+- src/components/site/: NEW — Section/Reveal, CTAButtons/useGoToSection, FAQAccordion, Chips, ServicePageTemplate (A–I), CaseStudy (CaseHero/BuiltTile/Swatches)
+- src/lib/useSEO.js: NEW — per-page title + meta
+- src/pages/Home.jsx: composed homepage incl. new Featured Work
+- src/pages/Services.jsx: NEW — 6-card services index + Talk-to-Ella CTA
+- src/pages/services/*.jsx: NEW — 6 service pages via ServicePageTemplate (VoiceAgents, FollowUpMachine, ReferralTracker, WinBack, CustomBuilds, VideoCreation)
+- src/pages/Work.jsx: NEW — work index, 3 illustrated case cards
+- src/pages/work/{Omad,RoadReady,LocalBoost}.jsx: NEW — bespoke case studies, all-live visuals
+- src/pages/About.jsx: NEW — founders (real photos), mission, approach, Canadian facts
+- public/images/founders/{alex-sadik,shawan-young}.jpg: placed (only real photos on site)
+
+FILES TOUCHED:
+- src/App.jsx, src/main.jsx (unchanged), package.json, package-lock.json
+- src/components/{Layout,Navbar,Footer,PromoBar,Hero,FeaturedProjects,FeaturedWork,Founder,HowItWorks}.jsx
+- src/components/visuals/*.jsx (11 files)
+- src/components/site/*.jsx (6 files)
+- src/lib/useSEO.js
+- src/pages/*.jsx + src/pages/services/*.jsx + src/pages/work/*.jsx (13 pages)
+- public/images/founders/*
+
+NEW DEPENDENCIES:
+- react-router-dom@^7.16.0 — client-side routing for 13 pages
+- recharts@^3.8.1 — line chart (AnimatedDashboard) + funnel (FunnelChart)
+
+BREAKING CHANGES:
+- App is now a router; the homepage moved from App.jsx into src/pages/Home.jsx
+- Navbar/Footer links are now route-based, not section-scroll-only
+- CapabilityModal no longer used on home (engine cards link to service pages); file retained
+
+TESTING DONE:
+- npm run build: success, 2698 modules, zero errors. Per-route chunks emitted (Omad 13.4kb, LocalBoost 22.5kb, About 15.9kb, RoadReady 11.2kb, service pages 3-5kb each)
+- Founder photo paths verified against disk; route slugs verified across App/Work/FeaturedWork
+- Visual QA in a browser NOT performed (no GUI in environment); layouts are mobile-first (grids stack at 390px)
+
+KNOWN ISSUES:
+- Lighthouse not run (no browser). AnimatedDashboard pulls recharts (~106kb gz) — loads only on pages that use it; EllaVoiceDemo chunk (133kb gz) pre-existing
+- Shawan Young bio is placeholder ("DRAFT BIO — TO BE FINALIZED BY SHAWAN")
+- public/images/revenue-engine-images-OPTIMIZED.zip (7.7MB) still in repo from user upload; unused stock/mockups inside not used per direction — safe to delete (recoverable from history)
+- FunnelChart + GradientCard built per brief but not yet placed on a page
+
+DEVIATIONS FROM BRIEF:
+- shadcn/ui Dialog not used (not installed); existing AnimatePresence modal pattern used instead — same UX, no new dependency
+- Per user decision (AskUserQuestion): ALL case-study visuals built live; uploaded work photos + stock + mockups intentionally NOT used; only founder photos are real
+
+NEXT LOGICAL STEPS:
+1. Browser QA at 390/768/1440px; Lighthouse audit (target 90+)
+2. Finalize Shawan Young bio
+3. Optionally remove the unused images zip to slim the deploy
+4. Set VITE_ELEVENLABS_AGENT_ID in Netlify env to activate voice demo
+
+DO NOT TOUCH:
+- Auth / JWT / login flow
+- Stripe integration
+- Email service mocks
+- Backend /api routes
+- ElevenLabs widget code (EllaVoiceDemo.jsx)
+- Database schemas
+- Admin routes
+
+ENV / CREDENTIALS NEEDED:
+- VITE_ELEVENLABS_AGENT_ID (ElevenLabs Conversational AI agent ID)
+
+DEPLOY STATUS:
+- pending push / branch claude/revenue-engine-portfolio-oDFKP
+
+=== END HANDOFF ===

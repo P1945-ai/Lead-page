@@ -305,6 +305,9 @@ body {
 .sld-btn:hover { background: var(--accent-hover) !important; }
 .sld-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
+/* Router nav links */
+.nav-link:hover { color: var(--accent) !important; }
+
 /* ── Mobile ── */
 @media (max-width: 640px) {
   .btn-primary,
